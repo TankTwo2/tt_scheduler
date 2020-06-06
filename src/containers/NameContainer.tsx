@@ -3,7 +3,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {RootState} from '../modules';
 import CustomInput from '../components/CustomInput';
 import useDebounce from "../hooks/useDebounce";
-import {Typography, Box, Button} from '@material-ui/core';
+import {Typography, Box, Zoom} from '@material-ui/core';
 import {makeStyles} from "@material-ui/core/styles";
 
 
@@ -69,7 +69,7 @@ export default function NameContainer() {
 
   return (
     isName ?
-      <Typography className={classes.nameStyle} onClick={()=>{chrome.storage.sync.clear(); setIsName(false)}}>{inputValue}'s Scheduler</Typography>
+        <Typography className={classes.nameStyle} onClick={()=>{chrome.storage.sync.clear(); setIsName(false)}}>{inputValue}'s Scheduler</Typography>
       :
       <>
         <Box className={classes.mainBox}>
