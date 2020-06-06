@@ -5,9 +5,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/useLocalSave.ts" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +87,7 @@
       <workItem from="1590324633047" duration="149000" />
       <workItem from="1590325959057" duration="554000" />
       <workItem from="1590328827776" duration="5807000" />
-      <workItem from="1591412529007" duration="1974000" />
+      <workItem from="1591412529007" duration="3289000" />
     </task>
     <task id="LOCAL-00001" summary="setting">
       <created>1590326383825</created>
@@ -118,7 +117,14 @@
       <option name="project" value="LOCAL" />
       <updated>1590503192535</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="[tts002] develop ~ structure redux">
+      <created>1591415473030</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1591415473030</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -126,7 +132,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="setting" />
-    <option name="LAST_COMMIT_MESSAGE" value="setting" />
+    <MESSAGE value="[tts002] develop ~ structure redux" />
+    <option name="LAST_COMMIT_MESSAGE" value="[tts002] develop ~ structure redux" />
   </component>
   <component name="WindowStateProjectService">
     <state x="496" y="225" key="#Notifications" timestamp="1590326604476">
@@ -137,17 +144,17 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="634" y="314" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1590500865081" />
-    <state x="464" y="75" key="CommitChangelistDialog2" timestamp="1590503192420">
+    <state x="464" y="75" key="CommitChangelistDialog2" timestamp="1591415472670">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="464" y="75" key="CommitChangelistDialog2/0.0.1792.1120@0.0.1792.1120" timestamp="1590503192420" />
+    <state x="464" y="75" key="CommitChangelistDialog2/0.0.1792.1120@0.0.1792.1120" timestamp="1591415472670" />
     <state x="397" y="199" key="SettingsEditor" timestamp="1591412512914">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="397" y="199" key="SettingsEditor/0.0.1792.1120@0.0.1792.1120" timestamp="1591412512914" />
-    <state x="496" y="296" key="Vcs.Push.Dialog.v2" timestamp="1590503195873">
+    <state x="496" y="296" key="Vcs.Push.Dialog.v2" timestamp="1591415475608">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="496" y="296" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1590503195873" />
+    <state x="496" y="296" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1591415475608" />
   </component>
 </project>

@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Paper, Button, TextField} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import CounterContainer from './containers/CounterContainer';
@@ -22,21 +22,37 @@ function App() {
 
   const debounceValue = useDebounce(inputValue, 5000);
 
+  //// InIt
 
-  const onInputChange = useCallback((e)=>{
-    setInputValue(e.target.value)
-  },[]);
+  // useEffect(()=>{
+  //   chrome.storage.sync.get(["testData"], function(items){
+  //     setInputValue(items.testData)
+  //   });
+  // },[]);
+
+  //// Func
+
+  // const onInputChange = useCallback((e)=>{
+  //   setInputValue(e.target.value);
+  //
+  // },[]);
+
+  // useEffect(()=>{
+  //   chrome.storage.sync.set({ "testData": debounceValue}, function(){
+  //   });
+  // },[debounceValue]);
+
 
   return (
     <>
       <Paper className={classes.root}>
-        <Button>
-          Hellow World!
-        </Button>
-        <TextField id="standard-basic" label="Standard" value={inputValue} onChange={onInputChange}/>
-        {debounceValue}
+        {/*<Button>*/}
+        {/*  Hellow World!*/}
+        {/*</Button>*/}
+        {/*<TextField id="standard-basic" label="Standard" value={inputValue} onChange={onInputChange}/>*/}
+        {/*{debounceValue}*/}
       </Paper>
-      <CounterContainer />
+      {/*<CounterContainer />*/}
     </>
   );
 }
