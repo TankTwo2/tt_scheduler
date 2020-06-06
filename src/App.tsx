@@ -1,34 +1,39 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {Paper, Button, TextField} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import CounterContainer from './containers/CounterContainer';
+import {makeStyles} from '@material-ui/core/styles';
 import useDebounce from "./hooks/useDebounce";
+import NameContainer from "./containers/NameContainer";
 
 const useStyles = makeStyles({
   root: {
-    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-    border: 0,
-    borderRadius: 3,
-    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+    margin:0,
+    padding:0,
+    width: '100%',
+    height: '100vh',
+    // display: 'flex',
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    background: 'url(https://source.unsplash.com/7vKP5BAm8wg/1600x900)',
+    backgroundSize: 'cover',
     color: 'white',
-    height: 48,
-    padding: '0 30px',
   },
 });
+
 // chrome.storage.sync.set({ "yourBody": "myBody" }, function(){
 function App() {
   const classes = useStyles();
   const [inputValue, setInputValue] = useState('');
+  const [timeFlag, setTimeFlag] = useState(false);
 
   const debounceValue = useDebounce(inputValue, 5000);
 
   //// InIt
 
-  // useEffect(()=>{
-  //   chrome.storage.sync.get(["testData"], function(items){
-  //     setInputValue(items.testData)
-  //   });
-  // },[]);
+  useEffect(()=>{
+    setTimeout(()=>{
+      setTimeFlag(true)
+    },1000);
+  },[]);
 
   //// Func
 
@@ -43,9 +48,13 @@ function App() {
   // },[debounceValue]);
 
 
+
+
   return (
     <>
       <Paper className={classes.root}>
+        {timeFlag ? <NameContainer /> : null}
+
         {/*<Button>*/}
         {/*  Hellow World!*/}
         {/*</Button>*/}
