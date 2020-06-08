@@ -3,6 +3,7 @@ import {Paper, Button, TextField} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import useDebounce from "./hooks/useDebounce";
 import NameContainer from "./containers/NameContainer";
+import CurrentMonth from "./components/CurrentMonth";
 
 const useStyles = makeStyles({
   root: {
@@ -23,7 +24,8 @@ const useStyles = makeStyles({
 function App() {
   const classes = useStyles();
   const [inputValue, setInputValue] = useState('');
-  const [timeFlag, setTimeFlag] = useState(false);
+  const [timeFlag, setTimeFlag] = useState<boolean>(false);
+  const [isName, setIsName] = useState<boolean>(true);
 
   const debounceValue = useDebounce(inputValue, 5000);
 
@@ -53,7 +55,10 @@ function App() {
   return (
     <>
       <Paper className={classes.root}>
-        {timeFlag ? <NameContainer /> : null}
+        {timeFlag ? <NameContainer isName={isName} setIsName={setIsName} /> : <><br /><br /></> }
+        {
+          isName ? <CurrentMonth /> : console.log(false)
+        }
 
         {/*<Button>*/}
         {/*  Hellow World!*/}
