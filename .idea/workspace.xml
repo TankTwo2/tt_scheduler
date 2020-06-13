@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="80449463-84ad-47df-a7f2-ddd6f339e5d6" name="Default Changelist" comment="[tts004] scheduler's Name">
+    <list default="true" id="80449463-84ad-47df-a7f2-ddd6f339e5d6" name="Default Changelist" comment="[tts005] month button">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/NameContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/NameContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CurrentMonth.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CurrentMonth.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +91,8 @@
       <workItem from="1590325959057" duration="554000" />
       <workItem from="1590328827776" duration="5807000" />
       <workItem from="1591412529007" duration="3600000" />
-      <workItem from="1591419061824" duration="17982000" />
+      <workItem from="1591419061824" duration="19062000" />
+      <workItem from="1592026801171" duration="3682000" />
     </task>
     <task id="LOCAL-00001" summary="setting">
       <created>1590326383825</created>
@@ -152,7 +150,14 @@
       <option name="project" value="LOCAL" />
       <updated>1591450165191</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="[tts005] month button">
+      <created>1591630682775</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1591630682775</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -163,7 +168,8 @@
     <MESSAGE value="[tts002] develop ~ structure redux" />
     <MESSAGE value="[tts003] chrome storage save &amp; load" />
     <MESSAGE value="[tts004] scheduler's Name" />
-    <option name="LAST_COMMIT_MESSAGE" value="[tts004] scheduler's Name" />
+    <MESSAGE value="[tts005] month button" />
+    <option name="LAST_COMMIT_MESSAGE" value="[tts005] month button" />
   </component>
   <component name="WindowStateProjectService">
     <state x="496" y="225" key="#Notifications" timestamp="1590326604476">
@@ -178,10 +184,10 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="634" y="314" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1590500865081" />
-    <state x="464" y="75" key="CommitChangelistDialog2" timestamp="1591624972168">
+    <state x="464" y="75" key="CommitChangelistDialog2" timestamp="1591705737341">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="464" y="75" key="CommitChangelistDialog2/0.0.1792.1120@0.0.1792.1120" timestamp="1591624972168" />
+    <state x="464" y="75" key="CommitChangelistDialog2/0.0.1792.1120@0.0.1792.1120" timestamp="1591705737341" />
     <state x="634" y="204" key="RollbackChangesDialog" timestamp="1591625174754">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
@@ -190,10 +196,14 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="397" y="199" key="SettingsEditor/0.0.1792.1120@0.0.1792.1120" timestamp="1591421621053" />
-    <state x="496" y="296" key="Vcs.Push.Dialog.v2" timestamp="1591450177003">
+    <state x="496" y="296" key="Vcs.Push.Dialog.v2" timestamp="1591630686591">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="496" y="296" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1591450177003" />
+    <state x="496" y="296" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1591630686591" />
+    <state x="679" y="182" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1592030375489">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state x="679" y="182" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1792.1120@0.0.1792.1120" timestamp="1592030375489" />
     <state x="561" y="265" width="670" height="675" key="run.anything.popup" timestamp="1591625153344">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
