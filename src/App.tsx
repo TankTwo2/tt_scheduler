@@ -1,9 +1,11 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {Paper, Button, TextField} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
+import moment from "moment";
 import useDebounce from "./hooks/useDebounce";
 import NameContainer from "./containers/NameContainer";
-import CurrentMonth from "./components/CurrentMonth";
+import CurrentMonthContainer from "./containers/CurrentMonthContainer";
+import WeekContainer from "./containers/WeekContainer";
 
 const useStyles = makeStyles({
   root: {
@@ -26,6 +28,11 @@ function App() {
   const [inputValue, setInputValue] = useState('');
   const [timeFlag, setTimeFlag] = useState<boolean>(false);
   const [isName, setIsName] = useState<boolean>(true);
+  ///
+  const [currentYY, setCurrentYY] = useState(moment().format('YY'));
+  const [currentMM, setCurrentMM] = useState(moment().format('MM'));
+  const [firstWeek, setFirstWeek] = useState(moment(currentMM, 'MM').startOf('month').format('WW'));
+  const [lastWeek, setLastWeek] = useState(moment(currentMM, 'MM').endOf('month').format('WW'));
 
   const debounceValue = useDebounce(inputValue, 5000);
 
@@ -55,10 +62,22 @@ function App() {
   return (
     <>
       <Paper className={classes.root}>
-        {timeFlag ? <NameContainer isName={isName} setIsName={setIsName} /> : <><br /><br /></> }
-        {
-          isName ? <CurrentMonth /> : console.log(false)
-        }
+        {timeFlag ?
+          <>
+          <NameContainer isName={isName} setIsName={setIsName} />
+          {
+            isName ? <>
+                <CurrentMonthContainer
+                  currentYY={currentYY} currentMM={currentMM} setCurrentMM={setCurrentMM} setCurrentYY={setCurrentYY}
+                />
+                <WeekContainer firstWeek={firstWeek} lastWeek={lastWeek} />
+            </>
+            : console.log(false)
+          }
+          </>
+          :
+          <><br /><br /></> }
+
 
         {/*<Button>*/}
         {/*  Hellow World!*/}

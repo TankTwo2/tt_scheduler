@@ -5,6 +5,13 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import moment from 'moment';
 
+type CurrentMonthContainerType = {
+  setCurrentYY: (e: any) => void,
+  setCurrentMM: (e: any) => void,
+  currentYY: string,
+  currentMM: string,
+}
+
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
@@ -25,21 +32,11 @@ const useStyles = makeStyles({
   }
 });
 
-export default function CurrentMonth() {
+export default function CurrentMonthContainer({
+  setCurrentYY, setCurrentMM, currentYY, currentMM,
+                                              }: CurrentMonthContainerType) {
   const classes = useStyles();
-  const [currentYY, setCurrentYY] = useState(moment().format('YY'));
-  const [currentMM, setCurrentMM] = useState(moment().format('MM'));
-  const [firstWeek, setFirstWeek] = useState(moment(currentMM, 'MM').startOf('month').format('WW'));
-  const [lastWeek, setLastWeek] = useState(moment(currentMM, 'MM').endOf('month').format('WW'));
 
-
-  //주차불러오기
-  useEffect(()=>{
-    let n;
-    for(n=0; n < Number(lastWeek) - Number(firstWeek) + 1; n++){
-      console.log(Number(firstWeek) + n)
-    }
-  },[lastWeek, firstWeek]);
 
   const prevButton = useCallback(()=>{
     let tempMonthValue = String(Number(currentMM) - 1);
@@ -66,7 +63,6 @@ export default function CurrentMonth() {
       setCurrentMM(tempMonthValue);
     }
   },[currentMM, currentYY]);
-
 
   return (
     <>
