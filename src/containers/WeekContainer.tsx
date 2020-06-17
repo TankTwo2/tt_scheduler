@@ -14,68 +14,72 @@ const useStyles = makeStyles({
   tdContainer: {
     padding: 10
   },
+  weekTdBox: {
+    height: 120,
+    opacity: 0.5,
+    backgroundColor: 'pink'
+  },
   tdBox: {
-    height: 40,
+    height: '100%',
     opacity: 0.5
   }
 });
 
 export default function WeekContainer({
-  firstWeek, lastWeek
-                                              }: WeekContainerType) {
+                                        firstWeek, lastWeek
+                                      }: WeekContainerType) {
   const classes = useStyles();
 
   //주차불러오기
-  useEffect(()=>{
+  useEffect(() => {
     let n;
-    for(n=0; n < Number(lastWeek) - Number(firstWeek) + 1; n++){
+    for (n = 0; n < Number(lastWeek) - Number(firstWeek) + 1; n++) {
       console.log(Number(firstWeek) + n)
     }
-  },[lastWeek, firstWeek]);
+  }, [lastWeek, firstWeek]);
 
-  const trDiv = useCallback(()=>{
+  const trDiv = useCallback(() => {
     let n;
     let tempWeek = [];
-    for(n=0; n < Number(lastWeek) - Number(firstWeek) + 1; n++){
+    for (n = 0; n < Number(lastWeek) - Number(firstWeek) + 1; n++) {
       tempWeek.push(Number(firstWeek) + n)
     }
     return (
       tempWeek.map(row => (
         <>
-          <Grid container spacing={3} className={classes.tdContainer}>
+          <Grid container spacing={2} className={classes.tdContainer}>
             {tdDiv(row)}
           </Grid>
         </>
       ))
     )
-  },[lastWeek, firstWeek]);
+  }, [lastWeek, firstWeek]);
 
-  const tdDiv = useCallback((row)=>{
-
-    return(
-      <>
-        <Grid item xs={2}>
-          <Paper className={classes.tdBox}>{row}</Paper>
-        </Grid>
-        <Grid item xs={2}>
-          <Paper className={classes.tdBox}>{row}</Paper>
-        </Grid>
-        <Grid item xs={2}>
-          <Paper className={classes.tdBox}>{row}</Paper>
-        </Grid>
-        <Grid item xs={2}>
-          <Paper className={classes.tdBox}>{row}</Paper>
-        </Grid>
-        <Grid item xs={2}>
-          <Paper className={classes.tdBox}>{row}</Paper>
-        </Grid>
-        <Grid item xs={2}>
-          <Paper className={classes.tdBox}>{row}</Paper>
-        </Grid>
-      </>
+  const tdDiv = useCallback((row) => {
+    let tempDivContainer = [];
+    tempDivContainer.push(
+      <Grid item xs>
+        <Paper className={classes.weekTdBox}>
+          {row}W
+        </Paper>
+      </Grid>
     )
-  }, []);
+    let n = 0;
+    while (n < 7) {
+      tempDivContainer.push(
+        <Grid item xs>
+          <Paper className={classes.tdBox}>
+            <Typography variant="inherit" gutterBottom>
+              {moment(row, 'WW').startOf('week').add('days', n).format('MM. DD. ddd')}
+            </Typography>
+          </Paper>
+        </Grid>
+      )
+      n++;
+    }
 
+    return tempDivContainer
+  }, []);
 
 
   return (
