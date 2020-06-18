@@ -14,10 +14,17 @@ const useStyles = makeStyles({
   tdContainer: {
     padding: 10
   },
+  headerBox: {
+    fontSize: 20,
+    height: '100%',
+    opacity: 0.5,
+    backgroundColor: 'green',
+    textAlign: 'center'
+  },
   weekTdBox: {
     height: 120,
     opacity: 0.5,
-    backgroundColor: 'pink'
+    backgroundColor: 'grey'
   },
   tdBox: {
     height: '100%',
@@ -40,19 +47,51 @@ export default function WeekContainer({
 
   const trDiv = useCallback(() => {
     let n;
-    let tempWeek = [];
+    const tempWeek = [];
     for (n = 0; n < Number(lastWeek) - Number(firstWeek) + 1; n++) {
       tempWeek.push(Number(firstWeek) + n)
     }
-    return (
-      tempWeek.map(row => (
-        <>
-          <Grid container spacing={2} className={classes.tdContainer}>
-            {tdDiv(row)}
+    const headerDiv = () => {
+      let tempHeaderContainer = [];
+      tempHeaderContainer.push(
+        <Grid item xs>
+          <Paper className={classes.headerBox}>
+            <Typography variant="inherit" gutterBottom>
+              Week
+            </Typography>
+          </Paper>
+        </Grid>
+      );
+      let n = 0;
+      while (n < 7) {
+        tempHeaderContainer.push(
+          <Grid item xs>
+            <Paper className={classes.headerBox}>
+              <Typography variant="inherit" gutterBottom>
+                {moment().startOf('week').add('days', n).format('ddd')}
+              </Typography>
+            </Paper>
           </Grid>
-        </>
-      ))
-    )
+        );
+        n++;
+      }
+      return (
+        <Grid container spacing={2} className={classes.tdContainer}>
+          {tempHeaderContainer}
+        </Grid>
+      )
+    };
+
+    return (
+      <>
+      {headerDiv()}
+      {tempWeek.map(row => (
+        <Grid container spacing={2} className={classes.tdContainer}>
+          {tdDiv(row)}
+        </Grid>
+      ))}
+      </>
+  )
   }, [lastWeek, firstWeek]);
 
   const tdDiv = useCallback((row) => {
@@ -63,18 +102,18 @@ export default function WeekContainer({
           {row}W
         </Paper>
       </Grid>
-    )
+    );
     let n = 0;
     while (n < 7) {
       tempDivContainer.push(
         <Grid item xs>
           <Paper className={classes.tdBox}>
             <Typography variant="inherit" gutterBottom>
-              {moment(row, 'WW').startOf('week').add('days', n).format('MM. DD. ddd')}
+              {moment(row, 'WW').startOf('week').add('days', n).format('MM. DD')}
             </Typography>
           </Paper>
         </Grid>
-      )
+      );
       n++;
     }
 
