@@ -1,9 +1,8 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {Grid, Paper, Typography, Box} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import moment from 'moment';
+import CellBox from "../components/CellBox";
 
 type WeekContainerType = {
   firstWeek: string,
@@ -22,14 +21,25 @@ const useStyles = makeStyles({
     textAlign: 'center'
   },
   weekTdBox: {
-    height: 120,
+    height: 90,
+    width: '11vw',
     opacity: 0.5,
-    backgroundColor: 'grey'
   },
   tdBox: {
     height: '100%',
-    opacity: 0.5
-  }
+    width: '11vw',
+    opacity: 0.5,
+  },
+  tdWeekendBox: {
+    height: '100%',
+    backgroundColor: 'pink',
+    width: '11vw',
+    opacity: 0.5,
+  },
+  tdDivHeader: {
+    textAlign: 'center',
+    borderBottom: '0.5px dashed grey'
+  },
 });
 
 export default function WeekContainer({
@@ -68,7 +78,7 @@ export default function WeekContainer({
           <Grid item xs>
             <Paper className={classes.headerBox}>
               <Typography variant="inherit" gutterBottom>
-                {moment().startOf('week').add('days', n).format('ddd')}
+                {moment().startOf('isoWeek').add('days', n).format('ddd')}
               </Typography>
             </Paper>
           </Grid>
@@ -76,7 +86,7 @@ export default function WeekContainer({
         n++;
       }
       return (
-        <Grid container spacing={2} className={classes.tdContainer}>
+        <Grid container spacing={3} className={classes.tdContainer}>
           {tempHeaderContainer}
         </Grid>
       )
@@ -86,7 +96,7 @@ export default function WeekContainer({
       <>
       {headerDiv()}
       {tempWeek.map(row => (
-        <Grid container spacing={2} className={classes.tdContainer}>
+        <Grid container spacing={3} className={classes.tdContainer}>
           {tdDiv(row)}
         </Grid>
       ))}
@@ -107,10 +117,11 @@ export default function WeekContainer({
     while (n < 7) {
       tempDivContainer.push(
         <Grid item xs>
-          <Paper className={classes.tdBox}>
-            <Typography variant="inherit" gutterBottom>
-              {moment(row, 'WW').startOf('week').add('days', n).format('MM. DD')}
+          <Paper className={n === 5 || n === 6 ? classes.tdWeekendBox : classes.tdBox}>
+            <Typography variant="subtitle1" className={classes.tdDivHeader}>
+              {moment(row, 'WW').startOf('isoWeek').add('days', n).format('MM. DD')}
             </Typography>
+            <CellBox />
           </Paper>
         </Grid>
       );

@@ -31,8 +31,8 @@ function App() {
   ///
   const [currentYY, setCurrentYY] = useState(moment().format('YY'));
   const [currentMM, setCurrentMM] = useState(moment().format('MM'));
-  const [firstWeek, setFirstWeek] = useState(moment(currentMM, 'MM').startOf('month').format('WW'));
-  const [lastWeek, setLastWeek] = useState(moment(currentMM, 'MM').endOf('month').format('WW'));
+  const [firstWeek, setFirstWeek] = useState(moment(currentYY + currentMM, 'YYMM').startOf('month').format('WW'));
+  const [lastWeek, setLastWeek] = useState(moment(currentYY + currentMM, 'YYMM').endOf('month').format('WW'));
 
   const debounceValue = useDebounce(inputValue, 5000);
 
@@ -69,6 +69,7 @@ function App() {
             isName ? <>
                 <CurrentMonthContainer
                   currentYY={currentYY} currentMM={currentMM} setCurrentMM={setCurrentMM} setCurrentYY={setCurrentYY}
+                  setFirstWeek={setFirstWeek} setLastWeek={setLastWeek}
                 />
                 <WeekContainer firstWeek={firstWeek} lastWeek={lastWeek} />
             </>

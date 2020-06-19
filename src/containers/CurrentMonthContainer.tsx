@@ -10,6 +10,8 @@ type CurrentMonthContainerType = {
   setCurrentMM: (e: any) => void,
   currentYY: string,
   currentMM: string,
+  setFirstWeek: (e: any) => void,
+  setLastWeek: (e: any) => void,
 }
 
 const useStyles = makeStyles({
@@ -17,7 +19,7 @@ const useStyles = makeStyles({
     flexGrow: 1,
   },
   paper: {
-    height: 140,
+    height: 120,
     width: 200,
     backgroundColor: 'rgba( 255, 255, 255, 0.0 )',
     boxShadow: 'none',
@@ -33,7 +35,7 @@ const useStyles = makeStyles({
 });
 
 export default function CurrentMonthContainer({
-  setCurrentYY, setCurrentMM, currentYY, currentMM,
+  setCurrentYY, setCurrentMM, currentYY, currentMM, setFirstWeek, setLastWeek
                                               }: CurrentMonthContainerType) {
   const classes = useStyles();
 
@@ -63,6 +65,12 @@ export default function CurrentMonthContainer({
       setCurrentMM(tempMonthValue);
     }
   },[currentMM, currentYY]);
+
+  useEffect(() => {
+    setFirstWeek(moment(currentYY + currentMM, 'YYMM').startOf('month').format('WW'));
+    setLastWeek(moment(currentYY + currentMM, 'YYMM').endOf('month').format('WW'));
+
+  }, [currentYY, currentMM]);
 
   return (
     <>
