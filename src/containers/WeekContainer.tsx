@@ -121,7 +121,11 @@ export default function WeekContainer({
             <Typography variant="subtitle1" className={classes.tdDivHeader}>
               {moment(row, 'WW').startOf('isoWeek').add('days', n).format('MM. DD')}
             </Typography>
-            <CellBox />
+            <CellBox
+              cellDate={moment(row, 'WW').startOf('isoWeek').add('days', n).format('YYMMDD')}
+              cellWeek={moment(row, 'WW').startOf('isoWeek').add('days', n).format('YYMMDD')}
+            />
+
           </Paper>
         </Grid>
       );

@@ -1,10 +1,10 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Box, Input, Typography} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 
 type CellBoxPropsType = {
-  onInputChange: (e: any) => void,
-  inputValue: string,
+  cellDate: string,
+  cellWeek: string
 }
 
 const useStyles = makeStyles({
@@ -17,14 +17,28 @@ const useStyles = makeStyles({
   }
 });
 
-export default function CellBox() {
+export default function CellBox({
+                                  cellDate, cellWeek
+                                }:CellBoxPropsType) {
   const classes = useStyles();
   const [flag, setFlag] = useState(false);
   const [tempValue, setTempValue] = useState('');
 
+
+
+  const onInputChange = useCallback((e) => {
+    try {
+      // chrome.storage.sync.set({"20Y23W": debounceValue}, function () {
+        setTempValue(e.target.value);
+      // });
+    } catch (e) {
+      console.log('Local Test')
+    }
+  }, [tempValue]);
+
   if(flag) return <Input
     multiline
-    className={classes.cellContents} value={tempValue} onChange={e=>setTempValue(e.target.value)}
+    className={classes.cellContents} value={tempValue} onChange={onInputChange}
   />;
 
   return (

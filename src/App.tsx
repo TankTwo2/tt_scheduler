@@ -33,6 +33,7 @@ function App() {
   const [currentMM, setCurrentMM] = useState(moment().format('MM'));
   const [firstWeek, setFirstWeek] = useState(moment(currentYY + currentMM, 'YYMM').startOf('month').format('WW'));
   const [lastWeek, setLastWeek] = useState(moment(currentYY + currentMM, 'YYMM').endOf('month').format('WW'));
+  // const [currentData, setCurrentData] = ustState('');
 
   const debounceValue = useDebounce(inputValue, 5000);
 
