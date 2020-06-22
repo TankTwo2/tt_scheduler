@@ -46,6 +46,12 @@ export default function WeekContainer({
                                         firstWeek, lastWeek
                                       }: WeekContainerType) {
   const classes = useStyles();
+  const [weekData1, setWeekData1] = useState({});
+  const [weekData2, setWeekData2] = useState({});
+  const [weekData3, setWeekData3] = useState({});
+  const [weekData4, setWeekData4] = useState({});
+  const [weekData5, setWeekData5] = useState({});
+  const [weekData6, setWeekData6] = useState({});
 
   //주차불러오기
   useEffect(() => {
