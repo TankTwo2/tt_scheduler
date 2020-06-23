@@ -6,7 +6,8 @@ import CellBox from "../components/CellBox";
 
 type WeekContainerType = {
   firstWeek: string,
-  lastWeek: string
+  lastWeek: string,
+  currentYY: string,
 }
 
 const useStyles = makeStyles({
@@ -42,23 +43,35 @@ const useStyles = makeStyles({
   },
 });
 
+// 20Y29W = {
+// 200531:String,
+// 200601:String,
+// 200601:String....
+// }
+
 export default function WeekContainer({
-                                        firstWeek, lastWeek
+                                        firstWeek, lastWeek, currentYY
                                       }: WeekContainerType) {
   const classes = useStyles();
-  const [weekData1, setWeekData1] = useState({});
-  const [weekData2, setWeekData2] = useState({});
-  const [weekData3, setWeekData3] = useState({});
-  const [weekData4, setWeekData4] = useState({});
-  const [weekData5, setWeekData5] = useState({});
-  const [weekData6, setWeekData6] = useState({});
+  const [weekData, setWeekData] = useState([]);
 
   //주차불러오기
   useEffect(() => {
     let n;
+    let tempSearchWeekList = [];
     for (n = 0; n < Number(lastWeek) - Number(firstWeek) + 1; n++) {
-      console.log(Number(firstWeek) + n)
+      tempSearchWeekList.push(currentYY + (Number(firstWeek) + n))
     }
+    console.log(tempSearchWeekList,'tempSearchWeekList');
+    // try {
+    //   chrome.storage.sync.get([tempSearchWeekList[0]], function (items) {
+    //     // items.map(row => setWeekData({...weekData, row}))
+    //     console.log(items, 'items')
+    //   });
+    // } catch (e) {
+    //   console.log('Local Test')
+    // }
+
   }, [lastWeek, firstWeek]);
 
   const trDiv = useCallback(() => {
@@ -84,7 +97,7 @@ export default function WeekContainer({
           <Grid item xs>
             <Paper className={classes.headerBox}>
               <Typography variant="inherit" gutterBottom>
-                {moment().startOf('isoWeek').add('days', n).format('ddd')}
+                {moment().startOf('isoWeek').add(n, 'days').format('ddd')}
               </Typography>
             </Paper>
           </Grid>
@@ -125,11 +138,10 @@ export default function WeekContainer({
         <Grid item xs>
           <Paper className={n === 5 || n === 6 ? classes.tdWeekendBox : classes.tdBox}>
             <Typography variant="subtitle1" className={classes.tdDivHeader}>
-              {moment(row, 'WW').startOf('isoWeek').add('days', n).format('MM. DD')}
+              {moment(row, 'WW').startOf('isoWeek').add( n, 'days').format('MM. DD')}
             </Typography>
             <CellBox
-              cellDate={moment(row, 'WW').startOf('isoWeek').add('days', n).format('YYMMDD')}
-              cellWeek={moment(row, 'WW').startOf('isoWeek').add('days', n).format('YYMMDD')}
+              cellDate={moment(row, 'WW').startOf('isoWeek').add(n, 'days',).format('YYMMDD')}
             />
 
           </Paper>

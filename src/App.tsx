@@ -72,7 +72,7 @@ function App() {
                   currentYY={currentYY} currentMM={currentMM} setCurrentMM={setCurrentMM} setCurrentYY={setCurrentYY}
                   setFirstWeek={setFirstWeek} setLastWeek={setLastWeek}
                 />
-                <WeekContainer firstWeek={firstWeek} lastWeek={lastWeek} />
+                <WeekContainer firstWeek={firstWeek} lastWeek={lastWeek} currentYY={currentYY}/>
             </>
             : console.log(false)
           }

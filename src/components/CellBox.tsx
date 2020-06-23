@@ -4,7 +4,6 @@ import {makeStyles} from '@material-ui/core/styles';
 
 type CellBoxPropsType = {
   cellDate: string,
-  cellWeek: string
 }
 
 const useStyles = makeStyles({
@@ -18,26 +17,41 @@ const useStyles = makeStyles({
 });
 
 export default function CellBox({
-                                  cellDate, cellWeek
+                                  cellDate,
                                 }:CellBoxPropsType) {
   const classes = useStyles();
   const [flag, setFlag] = useState(false);
   const [tempValue, setTempValue] = useState('');
 
-
-
-  const onInputChange = useCallback((e) => {
+  useEffect(()=>{
     try {
-      // chrome.storage.sync.set({"20Y23W": debounceValue}, function () {
-        setTempValue(e.target.value);
-      // });
+      chrome.storage.sync.get([cellDate], function (items) {
+        setTempValue(Object.values(items)[0]);
+      });
     } catch (e) {
       console.log('Local Test')
+    }
+  }, []);
+
+  const onInputChange = useCallback((e) => {
+    setTempValue(e.target.value);
+  }, []);
+
+  const onInputBlur = useCallback(() => {
+    setFlag(false);
+    let temp: {[index: string]:any} = {};
+    temp[cellDate] = tempValue;
+    try {
+      chrome.storage.sync.set(temp, function () {
+      });
+    } catch (e) {
+      console.log('Local Test');
     }
   }, [tempValue]);
 
   if(flag) return <Input
     multiline
+    onBlur={onInputBlur}
     className={classes.cellContents} value={tempValue} onChange={onInputChange}
   />;
 
