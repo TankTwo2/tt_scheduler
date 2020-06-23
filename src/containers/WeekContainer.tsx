@@ -62,7 +62,7 @@ export default function WeekContainer({
     for (n = 0; n < Number(lastWeek) - Number(firstWeek) + 1; n++) {
       tempSearchWeekList.push(currentYY + (Number(firstWeek) + n))
     }
-    console.log(tempSearchWeekList,'tempSearchWeekList');
+    // console.log(tempSearchWeekList,'tempSearchWeekList');
     // try {
     //   chrome.storage.sync.get([tempSearchWeekList[0]], function (items) {
     //     // items.map(row => setWeekData({...weekData, row}))
