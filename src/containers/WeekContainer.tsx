@@ -25,6 +25,8 @@ const useStyles = makeStyles({
     height: 90,
     width: '11vw',
     opacity: 0.5,
+    textAlign: 'center',
+    backgroundColor: 'darkgrey'
   },
   tdBox: {
     height: '100%',
@@ -53,7 +55,6 @@ export default function WeekContainer({
                                         firstWeek, lastWeek, currentYY
                                       }: WeekContainerType) {
   const classes = useStyles();
-  const [weekData, setWeekData] = useState([]);
 
   //주차불러오기
   useEffect(() => {
@@ -137,7 +138,10 @@ export default function WeekContainer({
       tempDivContainer.push(
         <Grid item xs>
           <Paper className={n === 5 || n === 6 ? classes.tdWeekendBox : classes.tdBox}>
-            <Typography variant="subtitle1" className={classes.tdDivHeader}>
+            <Typography
+              variant="subtitle1" className={classes.tdDivHeader}
+              style={moment(row, 'WW').startOf('isoWeek').add(n, 'days',).format('YYMMDD') === moment().format('YYMMDD') ? {backgroundColor: "orangered"}: {}}
+            >
               {moment(row, 'WW').startOf('isoWeek').add( n, 'days').format('MM. DD')}
             </Typography>
             <CellBox

@@ -58,7 +58,10 @@ export default function CellBox({
   return (
     <>
       <Box className={classes.cellContents} onClick={()=> setFlag(true)}>
-        <Typography variant="body1" style={{fontSize: 8}}>{tempValue}</Typography>
+        <Input
+          multiline style={{fontSize: 10}}
+          className={classes.cellContents} defaultValue={tempValue}
+        />
       </Box>
     </>
   )
