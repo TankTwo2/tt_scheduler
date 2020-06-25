@@ -4,7 +4,6 @@
 	"version": "0.2.1",
 	"incognito": "split",
 	"browser_action": {
-		"default_popup": "index.html",
 		"default_title": "Open the popup"
 	},
 	"chrome_url_overrides": {
@@ -14,8 +13,6 @@
 		"storage"
 	],
 	"icons": {
-		"16": "icon.png",
-		"48": "icon.png",
 		"128": "icon.png"
 	},
 "manifest_version": 2

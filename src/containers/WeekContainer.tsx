@@ -147,7 +147,6 @@ export default function WeekContainer({
             <CellBox
               cellDate={moment(row, 'WW').startOf('isoWeek').add(n, 'days',).format('YYMMDD')}
             />
-
           </Paper>
         </Grid>
       );
