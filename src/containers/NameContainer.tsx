@@ -5,6 +5,7 @@ import CustomInput from '../components/CustomInput';
 import useDebounce from "../hooks/useDebounce";
 import {Typography, Box} from '@material-ui/core';
 import {makeStyles} from "@material-ui/core/styles";
+import Clock from "../components/Clock";
 
 
 type NameContainerPropsType = {
@@ -23,7 +24,7 @@ const useStyles = makeStyles({
   nameStyle: {
     fontSize: 15,
     float: 'right',
-    margin: 5
+    margin: 5,
   }
 });
 
@@ -45,7 +46,7 @@ export default function NameContainer({
   useEffect(() => {
     try {
       chrome.storage.sync.get(["Name"], function (items) {
-        console.log(items.Name);
+        console.log(items.Name + " 's scheduler");
         if (items.Name !== '') {
           setInputValue(items.Name);
           setIsName(true);
@@ -76,7 +77,12 @@ export default function NameContainer({
 
   return (
     isName ?
-        <Typography className={classes.nameStyle} onClick={()=>{chrome.storage.sync.clear(); setIsName(false)}}>{inputValue}'s Scheduler</Typography>
+      <>
+        <Box>
+          <Clock/> <br/>
+          <Typography className={classes.nameStyle} onClick={()=>{chrome.storage.sync.clear(); setIsName(false)}}>{inputValue}'s Scheduler</Typography>
+        </Box>
+      </>
       :
       <>
         <Box className={classes.mainBox}>
