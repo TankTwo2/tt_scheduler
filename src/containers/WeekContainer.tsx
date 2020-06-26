@@ -24,9 +24,9 @@ const useStyles = makeStyles({
   weekTdBox: {
     height: 90,
     width: '11vw',
-    opacity: 0.5,
+    opacity: 0.7,
     textAlign: 'center',
-    backgroundColor: 'darkgrey'
+    backgroundColor: 'darkgrey',
   },
   tdBox: {
     height: '100%',
@@ -63,15 +63,6 @@ export default function WeekContainer({
     for (n = 0; n < Number(lastWeek) - Number(firstWeek) + 1; n++) {
       tempSearchWeekList.push(currentYY + (Number(firstWeek) + n))
     }
-    // console.log(tempSearchWeekList,'tempSearchWeekList');
-    // try {
-    //   chrome.storage.sync.get([tempSearchWeekList[0]], function (items) {
-    //     // items.map(row => setWeekData({...weekData, row}))
-    //     console.log(items, 'items')
-    //   });
-    // } catch (e) {
-    //   console.log('Local Test')
-    // }
 
   }, [lastWeek, firstWeek]);
 
@@ -129,7 +120,12 @@ export default function WeekContainer({
     tempDivContainer.push(
       <Grid item xs>
         <Paper className={classes.weekTdBox}>
-          {row}W
+          <Typography
+            variant="subtitle1" className={classes.tdDivHeader}>{row}W
+          </Typography>
+          <CellBox
+            cellDate={moment(row, 'WW').format('YYWW')}
+          />
         </Paper>
       </Grid>
     );
@@ -147,7 +143,6 @@ export default function WeekContainer({
             <CellBox
               cellDate={moment(row, 'WW').startOf('isoWeek').add(n, 'days',).format('YYMMDD')}
             />
-
           </Paper>
         </Grid>
       );

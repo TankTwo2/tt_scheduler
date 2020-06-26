@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState, useRef} from 'react';
 import {Box, Input, Typography} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 
@@ -22,16 +22,18 @@ export default function CellBox({
   const classes = useStyles();
   const [flag, setFlag] = useState(false);
   const [tempValue, setTempValue] = useState('');
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(()=>{
     try {
       chrome.storage.sync.get([cellDate], function (items) {
-        setTempValue(Object.values(items)[0]);
+        if(Object.values(items)[0])console.log(cellDate, Object.values(items)[0]);
+        setTempValue(Object.values(items)[0] ? Object.values(items)[0] : '');
       });
     } catch (e) {
       console.log('Local Test')
     }
-  }, []);
+  }, [cellDate]);
 
   const onInputChange = useCallback((e) => {
     setTempValue(e.target.value);
@@ -49,7 +51,15 @@ export default function CellBox({
     }
   }, [tempValue]);
 
+  useEffect(()=>{
+    if (!inputRef.current) {
+      return;
+    }
+    inputRef.current.focus();
+  },[flag]);
+
   if(flag) return <Input
+    inputRef={inputRef}
     multiline
     onBlur={onInputBlur}
     className={classes.cellContents} value={tempValue} onChange={onInputChange}
@@ -60,7 +70,7 @@ export default function CellBox({
       <Box className={classes.cellContents} onClick={()=> setFlag(true)}>
         <Input
           multiline style={{fontSize: 10}}
-          className={classes.cellContents} defaultValue={tempValue}
+          className={classes.cellContents} value={tempValue}
         />
       </Box>
     </>
