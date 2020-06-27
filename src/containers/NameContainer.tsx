@@ -15,16 +15,15 @@ type NameContainerPropsType = {
 
 const useStyles = makeStyles({
   mainBox: {
-    // display: 'flex',
-    // justifyContent: 'center',
-    // alignItems: 'center',
-
     textAlign: 'center'
   },
   nameStyle: {
     fontSize: 15,
     float: 'right',
-    margin: 5,
+    marginRight: 5,
+  },
+  brDiv: {
+    height: 5
   }
 });
 
@@ -79,7 +78,8 @@ export default function NameContainer({
     isName ?
       <>
         <Box>
-          <Clock/> <br/>
+          <Clock/><br />
+          <div className={classes.brDiv}/>
           <Typography className={classes.nameStyle} onClick={()=>{chrome.storage.sync.clear(); setIsName(false)}}>{inputValue}'s Scheduler</Typography>
         </Box>
       </>

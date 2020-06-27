@@ -24,20 +24,20 @@ const useStyles = makeStyles({
   weekTdBox: {
     height: 90,
     width: '11vw',
-    opacity: 0.7,
+    opacity: 0.8,
     textAlign: 'center',
     backgroundColor: 'darkgrey',
   },
   tdBox: {
     height: '100%',
     width: '11vw',
-    opacity: 0.5,
+    opacity: 0.7,
   },
   tdWeekendBox: {
     height: '100%',
     backgroundColor: 'pink',
     width: '11vw',
-    opacity: 0.5,
+    opacity: 0.7,
   },
   tdDivHeader: {
     textAlign: 'center',
