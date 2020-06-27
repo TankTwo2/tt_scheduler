@@ -5,13 +5,11 @@ import moment from "moment";
 const useStyles = makeStyles({
   dateValueStyle: {
     fontSize: 16,
-    float: 'right',
     display: 'inline',
     marginRight: 10,
   },
   timeValueStyle: {
     fontSize: 16,
-    float: 'right',
     display: 'inline',
     marginRight: 10,
     fontFamily: 'monospace'
@@ -34,8 +32,8 @@ export default function Clock() {
 
   return (
     <>
-      <span className={classes.timeValueStyle}>{timeValue}</span>
       <span className={classes.dateValueStyle}>{dateValue}</span>
+      <span className={classes.timeValueStyle}>{timeValue}</span>
     </>
   )
 };

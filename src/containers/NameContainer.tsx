@@ -6,6 +6,7 @@ import useDebounce from "../hooks/useDebounce";
 import {Typography, Box} from '@material-ui/core';
 import {makeStyles} from "@material-ui/core/styles";
 import Clock from "../components/Clock";
+import FeedBack from "../components/FeedBack";
 
 
 type NameContainerPropsType = {
@@ -14,13 +15,17 @@ type NameContainerPropsType = {
 }
 
 const useStyles = makeStyles({
+  tobBox: {
+    width: 400,
+    display: 'inline'
+  },
   mainBox: {
     textAlign: 'center'
   },
   nameStyle: {
     fontSize: 15,
-    float: 'right',
     marginRight: 5,
+    cursor: 'pointer'
   },
   brDiv: {
     height: 5
@@ -77,7 +82,8 @@ export default function NameContainer({
   return (
     isName ?
       <>
-        <Box>
+        <Box className={classes.tobBox}>
+          <FeedBack/>
           <Clock/><br />
           <div className={classes.brDiv}/>
           <Typography className={classes.nameStyle} onClick={()=>{chrome.storage.sync.clear(); setIsName(false)}}>{inputValue}'s Scheduler</Typography>
