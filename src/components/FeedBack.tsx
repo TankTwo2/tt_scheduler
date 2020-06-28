@@ -80,11 +80,11 @@ export default function FeedBack() {
         <Box className={classes.modalBox}>
           <TextField
             className={classes.textFieldStyle} multiline onChange={onFromChange}
-            variant="outlined" value={modalFrom} placeholder={'보내는이'}
+            variant="outlined" value={modalFrom} placeholder={'Title'}
           />
           <TextField
             className={classes.textFieldStyle} multiline onChange={onTextFieldChange}
-            variant="outlined" value={modalText} rows={8}
+            variant="outlined" value={modalText} placeholder={'Contents'} rows={8}
           />
         </Box>
         <Box className={classes.modalBox}>
