@@ -19,23 +19,20 @@ const useStyles = makeStyles({
     background: 'url(https://source.unsplash.com/7vKP5BAm8wg/1600x900)',
     backgroundSize: 'cover',
     color: 'white',
+    overflow: 'hidden'
   },
 });
 
 // chrome.storage.sync.set({ "yourBody": "myBody" }, function(){
 function App() {
   const classes = useStyles();
-  const [inputValue, setInputValue] = useState('');
   const [timeFlag, setTimeFlag] = useState<boolean>(false);
-  const [isName, setIsName] = useState<boolean>(true);
+  const [isName, setIsName] = useState<any>(null);
   ///
   const [currentYY, setCurrentYY] = useState(moment().format('YY'));
   const [currentMM, setCurrentMM] = useState(moment().format('MM'));
   const [firstWeek, setFirstWeek] = useState(moment(currentYY + currentMM, 'YYMM').startOf('month').format('WW'));
   const [lastWeek, setLastWeek] = useState(moment(currentYY + currentMM, 'YYMM').endOf('month').format('WW'));
-  // const [currentData, setCurrentData] = ustState('');
-
-  const debounceValue = useDebounce(inputValue, 5000);
 
   //// InIt
 
@@ -45,19 +42,9 @@ function App() {
     },1000);
   },[]);
 
-  //// Func
-
-  // const onInputChange = useCallback((e)=>{
-  //   setInputValue(e.target.value);
-  //
-  // },[]);
-
-  // useEffect(()=>{
-  //   chrome.storage.sync.set({ "testData": debounceValue}, function(){
-  //   });
-  // },[debounceValue]);
-
-
+  useEffect(()=>{
+    console.log(isName,'isNameisNameisName')
+  } ,[isName]);
 
 
   return (
@@ -74,7 +61,7 @@ function App() {
                 />
                 <WeekContainer firstWeek={firstWeek} lastWeek={lastWeek} currentYY={currentYY}/>
             </>
-            : console.log(false)
+            : console.log('isName, false')
           }
           </>
           :

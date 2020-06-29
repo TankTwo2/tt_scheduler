@@ -35,11 +35,6 @@ const useStyles = makeStyles({
 export default function NameContainer({
   isName, setIsName
                                       }:NameContainerPropsType) {
-  // 상태를 조회합니다. 상태를 조회 할 때에는 state 의 타입을 RootState 로 지정해야합니다.
-  // const count = useSelector((state: RootState) => state.counter.count);
-  // const dispatch = useDispatch(); // 디스패치 함수를 가져옵니다
-
-  // 각 액션들을 디스패치하는 함수들을 만들어줍니다
   const [inputValue, setInputValue] = useState('');
 
 
@@ -48,10 +43,12 @@ export default function NameContainer({
 
   //// Init
   useEffect(() => {
+    setInputValue('');
     try {
       chrome.storage.sync.get(["Name"], function (items) {
         console.log(items.Name + " 's scheduler");
-        if (items.Name !== '') {
+        if (items.Name !== '' && items.Name ) {
+          console.log(items.Name, 'items.Name get');
           setInputValue(items.Name);
           setIsName(true);
         } else{setIsName(false)}
@@ -63,13 +60,14 @@ export default function NameContainer({
 
   useEffect(() => {
     try {
-      chrome.storage.sync.set({"Name": debounceValue}, function () {
-        if(debounceValue !== ''){
+      if(debounceValue !== '') {
+        chrome.storage.sync.set({"Name": debounceValue}, function () {
+          console.log(debounceValue, 'debounceValue');
           setIsName(true);
-        }
-      });
+        });
+      }
     } catch (e) {
-      console.log('Local Test')
+      console.log('Local Test, Fave Fail', e)
     }
   }, [debounceValue]);
 
@@ -89,7 +87,7 @@ export default function NameContainer({
           <Typography className={classes.nameStyle} onClick={()=>{chrome.storage.sync.clear(); setIsName(false)}}>{inputValue}'s Scheduler</Typography>
         </Box>
       </>
-      :
+      : isName === false ?
       <>
         <Box className={classes.mainBox}>
           <CustomInput
@@ -98,6 +96,6 @@ export default function NameContainer({
           />
         </Box>
       </>
-
+      : null
   )
 };
