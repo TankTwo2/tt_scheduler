@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Paper, Button, TextField} from '@material-ui/core';
+import {Paper, Button, TextField, Typography} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import moment from "moment";
 import useDebounce from "./hooks/useDebounce";
@@ -21,6 +21,12 @@ const useStyles = makeStyles({
     color: 'white',
     overflow: 'hidden'
   },
+  version: {
+    fontSize:8,
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+  }
 });
 
 // chrome.storage.sync.set({ "yourBody": "myBody" }, function(){
@@ -66,13 +72,7 @@ function App() {
           </>
           :
           <><br /><br /></> }
-
-
-        {/*<Button>*/}
-        {/*  Hellow World!*/}
-        {/*</Button>*/}
-        {/*<TextField id="standard-basic" label="Standard" value={inputValue} onChange={onInputChange}/>*/}
-        {/*{debounceValue}*/}
+        <Typography className={classes.version}>0.2.7 made by Tanktwo</Typography>
       </Paper>
       {/*<CounterContainer />*/}
     </>
