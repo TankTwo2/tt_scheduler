@@ -33,6 +33,7 @@ const useStyles = makeStyles({
 function App() {
   const classes = useStyles();
   const [timeFlag, setTimeFlag] = useState<boolean>(false);
+  // const [isName, setIsName] = useState<any>(true);
   const [isName, setIsName] = useState<any>(null);
   ///
   const [currentYY, setCurrentYY] = useState(moment().format('YY'));
@@ -72,7 +73,7 @@ function App() {
           </>
           :
           <><br /><br /></> }
-        <Typography className={classes.version}>0.2.7 made by Tanktwo</Typography>
+        <Typography className={classes.version}>0.2.7.1 made by Tanktwo</Typography>
       </Paper>
       {/*<CounterContainer />*/}
     </>

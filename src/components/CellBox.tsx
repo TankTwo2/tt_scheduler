@@ -9,8 +9,8 @@ type CellBoxPropsType = {
 const useStyles = makeStyles({
   cellContents: {
     cursor: 'text',
-    height: 62,
-    width: '100%',
+    height: '8vh',
+    width: '11vw',
     overflow: 'auto',
     textOverflow: 'ellipsis',
   }
@@ -60,7 +60,7 @@ export default function CellBox({
 
   if(flag) return <Input
     inputRef={inputRef}
-    multiline
+    multiline disableUnderline
     onBlur={onInputBlur}
     className={classes.cellContents} value={tempValue} onChange={onInputChange}
   />;
@@ -69,7 +69,7 @@ export default function CellBox({
     <>
       <Box className={classes.cellContents} onClick={()=> setFlag(true)}>
         <Input
-          multiline style={{fontSize: 10}}
+          multiline style={{fontSize: 10}} disableUnderline
           className={classes.cellContents} value={tempValue}
         />
       </Box>

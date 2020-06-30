@@ -22,7 +22,7 @@ const useStyles = makeStyles({
     textAlign: 'center'
   },
   weekTdBox: {
-    height: 90,
+    height: '11vh',
     width: '11vw',
     opacity: 0.8,
     textAlign: 'center',
