@@ -73,7 +73,7 @@ function App() {
           </>
           :
           <><br /><br /></> }
-        <Typography className={classes.version}>0.2.7.1 made by Tanktwo</Typography>
+        <Typography className={classes.version}>0.2.7.2 made by Tanktwo</Typography>
       </Paper>
       {/*<CounterContainer />*/}
     </>
