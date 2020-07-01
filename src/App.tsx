@@ -16,7 +16,7 @@ const useStyles = makeStyles({
     // display: 'flex',
     // justifyContent: 'center',
     // alignItems: 'center',
-    background: 'url(https://source.unsplash.com/7vKP5BAm8wg/1600x900)',
+    background: 'url(https://source.unsplash.com/random/1600x900)',
     backgroundSize: 'cover',
     color: 'white',
     overflow: 'hidden'
