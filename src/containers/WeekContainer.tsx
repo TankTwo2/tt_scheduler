@@ -16,28 +16,29 @@ const useStyles = makeStyles({
   },
   headerBox: {
     fontSize: 20,
+    width: '10.8vw',
     height: '100%',
-    opacity: 0.5,
+    opacity: 0.8,
     backgroundColor: 'green',
     textAlign: 'center'
   },
   weekTdBox: {
     height: '11vh',
-    width: '11vw',
-    opacity: 0.8,
+    width: '10.8vw',
+    opacity: 0.9,
     textAlign: 'center',
     backgroundColor: 'darkgrey',
   },
   tdBox: {
     height: '100%',
-    width: '11vw',
-    opacity: 0.7,
+    width: '10.8vw',
+    opacity: 0.8,
   },
   tdWeekendBox: {
     height: '100%',
     backgroundColor: 'pink',
     width: '11vw',
-    opacity: 0.7,
+    opacity: 0.8,
   },
   tdDivHeader: {
     textAlign: 'center',
