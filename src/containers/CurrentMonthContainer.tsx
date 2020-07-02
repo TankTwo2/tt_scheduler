@@ -26,11 +26,11 @@ const useStyles = makeStyles({
     textAlign: 'center'
   },
   arrowButton: {
-    marginTop: 9, cursor:'pointer', color: 'white', opacity: 0.5, zoom: 1.5
+    marginTop: 9, cursor:'pointer', color: 'white', opacity: 0.7, zoom: 1.5
   },
   monthFont: {
     color: 'white',
-    opacity: 0.5
+    opacity: 0.7
   }
 });
 
