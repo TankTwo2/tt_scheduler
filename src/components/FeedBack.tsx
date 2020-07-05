@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import GitHubIcon from '@material-ui/icons/GitHub';
 import MailIcon from '@material-ui/icons/Mail';
 import {makeStyles} from "@material-ui/core/styles";
@@ -51,8 +51,12 @@ export default function FeedBack({
                                  }:FeedBackType) {
   const classes = useStyles();
   const [modalFlag, setModalFlag] = useState<boolean>(false);
-  const [modalFrom, setModalFrom] = useState<string>(loginEmail);
+  const [modalFrom, setModalFrom] = useState<string>('Local');
   const [modalText, setModalText] = useState<string>('');
+
+  useEffect(()=>{
+    setModalFrom(loginEmail)
+  }, [loginEmail]);
 
   const onModalOpen = () => {
     setModalFlag(true);
