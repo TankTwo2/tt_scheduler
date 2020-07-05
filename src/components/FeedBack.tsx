@@ -6,6 +6,11 @@ import Modal from '@material-ui/core/Modal';
 import sendMail from "../hooks/sendMail";
 import {Paper, Typography, TextField, Button, Box} from "@material-ui/core";
 
+
+type FeedBackType = {
+  loginEmail: string,
+}
+
 const useStyles = makeStyles({
   modalPaper: {
     width: 900,
@@ -18,14 +23,15 @@ const useStyles = makeStyles({
     zIndex: 1
   },
   modalBox: {
-    overFlow: 'scroll'
+    overFlow: 'scroll',
   },
   githubStyle: {
     float: 'right',
     zoom: 1.3,
     color: 'white',
     margin: 5,
-    marginLeft: 1
+    marginLeft: 1,
+    cursor: 'pointer'
   },
   modalHeader: {
     margin: 15
@@ -36,14 +42,16 @@ const useStyles = makeStyles({
   },
   buttonStyle: {
     float: 'right',
-    marginRight: 10
+    marginRight: 10,
   }
 });
 
-export default function FeedBack() {
+export default function FeedBack({
+                                   loginEmail
+                                 }:FeedBackType) {
   const classes = useStyles();
   const [modalFlag, setModalFlag] = useState<boolean>(false);
-  const [modalFrom, setModalFrom] = useState<string>('');
+  const [modalFrom, setModalFrom] = useState<string>(loginEmail);
   const [modalText, setModalText] = useState<string>('');
 
   const onModalOpen = () => {

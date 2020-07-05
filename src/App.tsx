@@ -16,7 +16,8 @@ const useStyles = makeStyles({
     // display: 'flex',
     // justifyContent: 'center',
     // alignItems: 'center',
-    background: 'url(https://source.unsplash.com/random/1600x900)',
+    // background: 'url(https://source.unsplash.com/random/1600x900)',
+    backgroundColor: '#A3BFBA',
     backgroundSize: 'cover',
     color: 'white',
     overflow: 'hidden'
@@ -34,7 +35,7 @@ function App() {
   const classes = useStyles();
   const [timeFlag, setTimeFlag] = useState<boolean>(false);
   const [isName, setIsName] = useState<any>(true);
-  // const [isName, setIsName] = useState<any>(null);
+  // const [isName, setIsName] = useState<any>(false);
   ///
   const [currentYY, setCurrentYY] = useState(moment().format('YY'));
   const [currentMM, setCurrentMM] = useState(moment().format('MM'));
@@ -43,39 +44,18 @@ function App() {
 
   //// InIt
 
-  useEffect(()=>{
-    setTimeout(()=>{
-      setTimeFlag(true)
-    },1000);
-  },[]);
-
-  useEffect(()=>{
-    console.log(isName,'isNameisNameisName')
-  } ,[isName]);
-
 
   return (
     <>
       <Paper className={classes.root}>
-        {timeFlag ?
-          <>
-          <NameContainer isName={isName} setIsName={setIsName} />
-          {
-            isName ? <>
-                <CurrentMonthContainer
-                  currentYY={currentYY} currentMM={currentMM} setCurrentMM={setCurrentMM} setCurrentYY={setCurrentYY}
-                  setFirstWeek={setFirstWeek} setLastWeek={setLastWeek}
-                />
-                <WeekContainer firstWeek={firstWeek} lastWeek={lastWeek} currentYY={currentYY}/>
-            </>
-            : console.log('isName, false')
-          }
-          </>
-          :
-          <><br /><br /></> }
+        <NameContainer isName={isName} />
+        <CurrentMonthContainer
+          currentYY={currentYY} currentMM={currentMM} setCurrentMM={setCurrentMM} setCurrentYY={setCurrentYY}
+          setFirstWeek={setFirstWeek} setLastWeek={setLastWeek}
+        />
+        <WeekContainer firstWeek={firstWeek} lastWeek={lastWeek} currentYY={currentYY}/>
         <Typography className={classes.version}>0.2.7.3 made by Tanktwo</Typography>
       </Paper>
-      {/*<CounterContainer />*/}
     </>
   );
 }

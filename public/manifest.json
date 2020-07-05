@@ -11,7 +11,9 @@
 		"newtab": "index.html"
 	},
 	"permissions": [
-		"storage"
+		"storage",
+		"identity",
+		"identity.email"
 	],
 	"icons": {
 		"128": "icon.png"
