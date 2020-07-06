@@ -46,33 +46,19 @@ const useStyles = makeStyles({
   },
 });
 
-// 20Y29W = {
-// 200531:String,
-// 200601:String,
-// 200601:String....
-// }
-
 export default function WeekContainer({
                                         firstWeek, lastWeek, currentYY
                                       }: WeekContainerType) {
   const classes = useStyles();
-
-  //주차불러오기
-  useEffect(() => {
-    let n;
-    let tempSearchWeekList = [];
-    for (n = 0; n < Number(lastWeek) - Number(firstWeek) + 1; n++) {
-      tempSearchWeekList.push(currentYY + (Number(firstWeek) + n))
-    }
-
-  }, [lastWeek, firstWeek]);
-
+  console.log(lastWeek, firstWeek)
   const trDiv = useCallback(() => {
     let n;
     const tempWeek = [];
     for (n = 0; n < Number(lastWeek) - Number(firstWeek) + 1; n++) {
+      console.log(Number(firstWeek) + n)
       tempWeek.push(Number(firstWeek) + n)
     }
+    console.log(tempWeek)
     const headerDiv = () => {
       let tempHeaderContainer = [];
       tempHeaderContainer.push(
@@ -103,7 +89,6 @@ export default function WeekContainer({
         </Grid>
       )
     };
-
     return (
       <>
       {headerDiv()}
@@ -137,7 +122,10 @@ export default function WeekContainer({
           <Paper className={n === 5 || n === 6 ? classes.tdWeekendBox : classes.tdBox}>
             <Typography
               variant="subtitle1" className={classes.tdDivHeader}
-              style={moment(row, 'WW').startOf('isoWeek').add(n, 'days',).format('YYMMDD') === moment().format('YYMMDD') ? {backgroundColor: "orangered"}: {}}
+              style={moment(row, 'WW')
+                .startOf('isoWeek').add(n, 'days',).format('YYMMDD') === moment().format('YYMMDD')
+                ? {backgroundColor: "orangered"}
+                : {}}
             >
               {moment(row, 'WW').startOf('isoWeek').add( n, 'days').format('MM. DD')}
             </Typography>

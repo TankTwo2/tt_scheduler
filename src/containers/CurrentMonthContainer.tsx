@@ -69,7 +69,6 @@ export default function CurrentMonthContainer({
   useEffect(() => {
     setFirstWeek(moment(currentYY + currentMM, 'YYMM').startOf('month').format('WW'));
     setLastWeek(moment(currentYY + currentMM, 'YYMM').endOf('month').format('WW'));
-
   }, [currentYY, currentMM]);
 
   return (

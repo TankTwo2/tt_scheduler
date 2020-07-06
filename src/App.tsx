@@ -20,7 +20,7 @@ const useStyles = makeStyles({
     backgroundColor: '#A3BFBA',
     backgroundSize: 'cover',
     color: 'white',
-    overflow: 'hidden'
+    overflow: 'auto'
   },
   version: {
     fontSize:8,
