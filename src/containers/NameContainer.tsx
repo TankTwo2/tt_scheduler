@@ -4,11 +4,6 @@ import {makeStyles} from "@material-ui/core/styles";
 import Clock from "../components/Clock";
 import FeedBack from "../components/FeedBack";
 
-
-type NameContainerPropsType = {
-  isName: boolean,
-}
-
 const useStyles = makeStyles({
   tobBox: {
     width: 400,
@@ -26,9 +21,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default function NameContainer({
-  isName
-                                      }:NameContainerPropsType) {
+export default function NameContainer(){
   const [loginEmail, setLoginEmail] = useState('Local');
 
   const getLoginInfo = () => {

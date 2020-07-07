@@ -50,14 +50,27 @@ export default function WeekContainer({
                                         firstWeek, lastWeek, currentYY
                                       }: WeekContainerType) {
   const classes = useStyles();
-  console.log(lastWeek, firstWeek)
+  const LastWW = moment(currentYY, 'YY').endOf('year').format('WW');
   const trDiv = useCallback(() => {
     let n;
     const tempWeek = [];
-    for (n = 0; n < Number(lastWeek) - Number(firstWeek) + 1; n++) {
-      console.log(Number(firstWeek) + n)
-      tempWeek.push(Number(firstWeek) + n)
+    // [50,51,52,53 ,01,02]
+    if(Number(lastWeek) < Number(firstWeek)){
+      for (n = 0; n + Number(firstWeek) <= Number(LastWW) ; n++) {
+        tempWeek.push(n + Number(firstWeek))
+        console.log(n + Number(firstWeek), 1)
+      }
+      for (n = 1; n <= Number(lastWeek) + 1; n++) {
+        tempWeek.push(n)
+        console.log(n, 2)
+      }
+    } else {
+      for (n = 0; n < Number(lastWeek) - Number(firstWeek) + 1; n++) {
+        tempWeek.push(Number(firstWeek) + n)
+        console.log(Number(firstWeek) + n, 3)
+      }
     }
+
     console.log(tempWeek)
     const headerDiv = () => {
       let tempHeaderContainer = [];

@@ -33,10 +33,6 @@ const useStyles = makeStyles({
 // chrome.storage.sync.set({ "yourBody": "myBody" }, function(){
 function App() {
   const classes = useStyles();
-  const [timeFlag, setTimeFlag] = useState<boolean>(false);
-  const [isName, setIsName] = useState<any>(true);
-  // const [isName, setIsName] = useState<any>(false);
-  ///
   const [currentYY, setCurrentYY] = useState(moment().format('YY'));
   const [currentMM, setCurrentMM] = useState(moment().format('MM'));
   const [firstWeek, setFirstWeek] = useState(moment(currentYY + currentMM, 'YYMM').startOf('month').format('WW'));
@@ -48,7 +44,7 @@ function App() {
   return (
     <>
       <Paper className={classes.root}>
-        <NameContainer isName={isName} />
+        <NameContainer />
         <CurrentMonthContainer
           currentYY={currentYY} currentMM={currentMM} setCurrentMM={setCurrentMM} setCurrentYY={setCurrentYY}
           setFirstWeek={setFirstWeek} setLastWeek={setLastWeek}
