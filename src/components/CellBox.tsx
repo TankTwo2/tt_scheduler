@@ -31,7 +31,7 @@ export default function CellBox({
         setTempValue(Object.values(items)[0] ? Object.values(items)[0] : '');
       });
     } catch (e) {
-      console.log('Local Test')
+      console.log('Local Test', cellDate)
     }
   }, [cellDate]);
 
