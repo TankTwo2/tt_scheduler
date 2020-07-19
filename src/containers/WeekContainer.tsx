@@ -51,6 +51,7 @@ export default function WeekContainer({
                                         firstWeek, lastWeek, currentYY, currentMM
                                       }: WeekContainerType) {
   const classes = useStyles();
+  const CurrentYearFirstWW = moment(Number(currentYY)+1, 'YY').startOf('year').format('WW');
   const LastYearLastWW = moment(Number(currentYY)-1, 'YY').endOf('year').format('WW');
   const trDiv = useCallback(() => {
     let n = 0;
@@ -70,7 +71,7 @@ export default function WeekContainer({
           tempWeek.push(String(Number(currentYY) - 1) + String(Number(LastYearLastWW) - n));
           // console.log(String(Number(currentYY) - 1) + String(Number(LastYearLastWW) - n), 2)
         }
-        for (n = 1; n <= Number(lastWeek.slice(2)) + 1; n++) {
+        for (n = 1; n < Number(lastWeek.slice(2)) + 1; n++) {
           if(tempWeek.length !== 6){
             tempWeek.push(currentYY + '0' + n);
             // console.log(currentYY + '0' + n, 3)
@@ -78,14 +79,17 @@ export default function WeekContainer({
         }
       } else if(currentMM === '12') {
         //년도가 다른데 12월인 특수한경우
-        for (n = 0; n <= Number(LastYearLastWW) - Number(moment(firstWeek, 'YYWW').format('WW')); n++) {
-          tempWeek.push(Number(currentYY) + String(Number(LastYearLastWW) - n));
-          // console.log(Number(currentYY) + String(Number(LastYearLastWW) - n), 2)
+        let n = 0;
+        while (moment(lastWeek, 'YYWW').format('WW') !== moment(firstWeek, 'YYWW').add(n,'w').format('WW')){
+          tempWeek.push(currentYY + moment(firstWeek, 'YYWW').add(n,'w').format('WW'));
+          // console.log(currentYY +moment(firstWeek, 'YYWW').add(n,'w').format('WW'), 2)
+          n += 1;
         }
-        for (n = 1; n <= Number(lastWeek.slice(2)) + 1; n++) {
+
+        for (n = 1; n < Number(lastWeek.slice(2)) + 1; n++) {
           if(tempWeek.length !== 6){
-            tempWeek.push(currentYY + '0' + n);
-            // console.log(currentYY + '0' + n, 3)
+            tempWeek.push((Number(currentYY) + 1) + '0' + n);
+            // console.log((Number(currentYY) + 1) + '0' + n, 3)
           }
         }
       }

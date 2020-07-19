@@ -68,7 +68,7 @@ function App() {
           currentYY={currentYY} currentMM={currentMM} setCurrentMM={setCurrentMM} setCurrentYY={setCurrentYY}
         />
         <WeekContainer firstWeek={firstWeek} lastWeek={lastWeek} currentYY={currentYY} currentMM={currentMM}/>
-        <Typography className={classes.version}>0.2.7.3 made by Tanktwo</Typography>
+        <Typography className={classes.version}>0.2.8.0 made by Tanktwo</Typography>
       </Paper>
     </>
   );
