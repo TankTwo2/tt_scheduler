@@ -1,17 +1,15 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {Grid, Paper, Typography} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import moment from 'moment';
+import TimePicker from "../components/TimePicker";
 
 type CurrentMonthContainerType = {
   setCurrentYY: (e: any) => void,
   setCurrentMM: (e: any) => void,
   currentYY: string,
   currentMM: string,
-  setFirstWeek: (e: any) => void,
-  setLastWeek: (e: any) => void,
 }
 
 const useStyles = makeStyles({
@@ -35,9 +33,10 @@ const useStyles = makeStyles({
 });
 
 export default function CurrentMonthContainer({
-  setCurrentYY, setCurrentMM, currentYY, currentMM, setFirstWeek, setLastWeek
+  setCurrentYY, setCurrentMM, currentYY, currentMM
                                               }: CurrentMonthContainerType) {
   const classes = useStyles();
+  const [isDate, setIsDate] = useState(false);
 
 
   const prevButton = useCallback(()=>{
@@ -66,14 +65,14 @@ export default function CurrentMonthContainer({
     }
   },[currentMM, currentYY]);
 
-  useEffect(() => {
-    setFirstWeek(moment(currentYY + currentMM, 'YYMM').startOf('month').format('WW'));
-    setLastWeek(moment(currentYY + currentMM, 'YYMM').endOf('month').format('WW'));
-  }, [currentYY, currentMM]);
+    const onDateClick = () => {
+      setIsDate(true);
+    };
 
   return (
     <>
       <Grid item xs={12}>
+        <TimePicker setCurrentMM={setCurrentMM} setCurrentYY={setCurrentYY} currentYY={currentYY} currentMM={currentMM} isDate={isDate} setIsDate={setIsDate}/>
         <Grid container justify="center" spacing={2}>
           <Grid key={1} item>
             <Paper className={classes.paper}>
@@ -82,7 +81,7 @@ export default function CurrentMonthContainer({
           </Grid>
           <Grid key={2} item>
             <Paper className={classes.paper}>
-              <Typography variant="h2" className={classes.monthFont}>{currentYY + '. ' + currentMM}</Typography>
+              <Typography variant="h2" onClick={onDateClick} className={classes.monthFont}>{currentYY + '. ' + currentMM}</Typography>
             </Paper>
           </Grid>
           <Grid key={3} item>

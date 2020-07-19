@@ -31,7 +31,7 @@ export default function CellBox({
         setTempValue(Object.values(items)[0] ? Object.values(items)[0] : '');
       });
     } catch (e) {
-      console.log('Local Test', cellDate)
+      // console.log('Local Test', cellDate)
     }
   }, [cellDate]);
 
@@ -47,7 +47,7 @@ export default function CellBox({
       chrome.storage.sync.set(temp, function () {
       });
     } catch (e) {
-      console.log('Local Test');
+      // console.log('Local Test');
     }
   }, [tempValue]);
 

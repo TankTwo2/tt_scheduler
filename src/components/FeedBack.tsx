@@ -129,7 +129,7 @@ export default function FeedBack({
       name: 'test name',
       date: '2020. 07. 09'
     }]
-  )
+  );
 
   const devListModalBody = (
     <Paper className={classes.modalPaper}>

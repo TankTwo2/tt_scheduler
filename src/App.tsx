@@ -2,7 +2,6 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {Paper, Button, TextField, Typography} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import moment from "moment";
-import useDebounce from "./hooks/useDebounce";
 import NameContainer from "./containers/NameContainer";
 import CurrentMonthContainer from "./containers/CurrentMonthContainer";
 import WeekContainer from "./containers/WeekContainer";
@@ -35,11 +34,31 @@ function App() {
   const classes = useStyles();
   const [currentYY, setCurrentYY] = useState(moment().format('YY'));
   const [currentMM, setCurrentMM] = useState(moment().format('MM'));
-  const [firstWeek, setFirstWeek] = useState(moment(currentYY + currentMM, 'YYMM').startOf('month').format('WW'));
-  const [lastWeek, setLastWeek] = useState(moment(currentYY + currentMM, 'YYMM').endOf('month').format('WW'));
+  const [firstWeek, setFirstWeek] = useState('');
+  const [lastWeek, setLastWeek] = useState('');
 
   //// InIt
+  //년도, 월,
 
+  useEffect(() => {
+    if(moment(currentYY + currentMM, 'YYMM').startOf('month').format('WW')>moment(currentYY + currentMM, 'YYMM').endOf('month').format('WW')){
+      if(currentMM === '01'){
+        setFirstWeek(Number(currentYY) - 1 + moment(currentYY + currentMM, 'YYMM').startOf('month').format('WW'));
+        setLastWeek(moment(currentYY + currentMM, 'YYMM').endOf('month').format('YYWW'));
+      }
+      else if(currentMM === '12'){
+        setFirstWeek(moment(currentYY + currentMM, 'YYMM').startOf('month').format('YYWW'));
+        setLastWeek(Number(currentYY) + 1 + moment(currentYY + currentMM, 'YYMM').endOf('month').format('WW'));
+      }
+    } else {
+      setFirstWeek(moment(currentYY + currentMM, 'YYMM').startOf('month').format('YYWW'));
+      setLastWeek(moment(currentYY + currentMM, 'YYMM').endOf('month').format('YYWW'));
+    }
+  }, [currentYY, currentMM]);
+
+  useEffect(()=>{
+    console.log('firstWeek',firstWeek, 'lastWeek', lastWeek)
+  },[firstWeek, lastWeek]);
 
   return (
     <>
@@ -47,9 +66,8 @@ function App() {
         <NameContainer />
         <CurrentMonthContainer
           currentYY={currentYY} currentMM={currentMM} setCurrentMM={setCurrentMM} setCurrentYY={setCurrentYY}
-          setFirstWeek={setFirstWeek} setLastWeek={setLastWeek}
         />
-        <WeekContainer firstWeek={firstWeek} lastWeek={lastWeek} currentYY={currentYY}/>
+        <WeekContainer firstWeek={firstWeek} lastWeek={lastWeek} currentYY={currentYY} currentMM={currentMM}/>
         <Typography className={classes.version}>0.2.7.3 made by Tanktwo</Typography>
       </Paper>
     </>
