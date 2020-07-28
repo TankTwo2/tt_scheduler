@@ -1,4 +1,6 @@
 import React, {useCallback, useEffect, useState, useRef} from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 import {Box, Input, Typography} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 
@@ -64,6 +66,7 @@ export default function CellBox({
     onBlur={onInputBlur}
     className={classes.cellContents} value={tempValue} onChange={onInputChange}
   />;
+  // if(flag) return<ReactQuill theme="snow" onBlur={onInputBlur} value={tempValue} onChange={setTempValue} />
 
   return (
     <>
