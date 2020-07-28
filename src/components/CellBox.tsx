@@ -10,7 +10,7 @@ const useStyles = makeStyles({
   cellContents: {
     cursor: 'text',
     height: '8vh',
-    width: '11vw',
+    width: '10.2vw',
     overflow: 'auto',
     textOverflow: 'ellipsis',
   }

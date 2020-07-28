@@ -13,11 +13,15 @@ type WeekContainerType = {
 
 const useStyles = makeStyles({
   tdContainer: {
-    padding: 10
+    padding: 0,
+    paddingTop: 10,
+    paddingLeft: 5,
+    textAlign: 'center',
+    marginLeft: '5'
   },
   headerBox: {
     fontSize: 20,
-    width: '10.8vw',
+    width: '10.5vw',
     height: '100%',
     opacity: 0.8,
     backgroundColor: 'green',
@@ -25,20 +29,20 @@ const useStyles = makeStyles({
   },
   isoWeekTdBox: {
     height: '100%',
-    width: '10.8vw',
+    width: '10.5vw',
     opacity: 0.9,
     textAlign: 'center',
     backgroundColor: 'darkgrey',
   },
   tdBox: {
     height: '100%',
-    width: '10.8vw',
+    width: '10.5vw',
     opacity: 0.8,
   },
   tdWeekendBox: {
     height: '100%',
     backgroundColor: 'pink',
-    width: '11vw',
+    width: '10.5vw',
     opacity: 0.8,
   },
   tdDivHeader: {
@@ -122,7 +126,7 @@ export default function WeekContainer({
         n++;
       }
       return (
-        <Grid container spacing={3} className={classes.tdContainer}>
+        <Grid container spacing={1} className={classes.tdContainer}>
           {tempHeaderContainer}
         </Grid>
       )
@@ -131,7 +135,7 @@ export default function WeekContainer({
       <>
       {headerDiv()}
       {tempWeek.map(row => (
-        <Grid container spacing={3} className={classes.tdContainer}>
+        <Grid container spacing={1} className={classes.tdContainer}>
           {tdDiv(row)}
         </Grid>
       ))}
