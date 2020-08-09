@@ -4,7 +4,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import ViewListIcon from '@material-ui/icons/ViewList';
 import {makeStyles} from "@material-ui/core/styles";
 import Modal from '@material-ui/core/Modal';
-import sendMail from "../hooks/sendMail";
+// import sendMail from "../hooks/sendMail";
 import {Paper, Typography, TextField, Button, Box} from "@material-ui/core";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -15,6 +15,7 @@ import TableRow from '@material-ui/core/TableRow';
 
 type FeedBackType = {
   loginEmail: string,
+  darkMode: boolean
 }
 
 const useStyles = makeStyles({
@@ -34,7 +35,7 @@ const useStyles = makeStyles({
   githubStyle: {
     float: 'right',
     zoom: 1.3,
-    color: 'white',
+    color: 'black',
     margin: 5,
     marginLeft: 1,
     cursor: 'pointer'
@@ -56,7 +57,7 @@ const useStyles = makeStyles({
 });
 
 export default function FeedBack({
-                                   loginEmail
+                                   loginEmail, darkMode
                                  }:FeedBackType) {
   const classes = useStyles();
   const [feedbackModalFlag, setFeedBackModalFlag] = useState<boolean>(false);
@@ -70,7 +71,7 @@ export default function FeedBack({
   }, [loginEmail]);
 
   const onModalOpen = () => {
-    setFeedBackModalFlag(true);
+    // setFeedBackModalFlag(true);
   };
 
   const onFromChange = (e:any) => {
@@ -82,7 +83,7 @@ export default function FeedBack({
   };
 
   const onModalOKButton = () => {
-    sendMail(feedbackModalFrom, feedbackModalText);
+    // sendMail(feedbackModalFrom, feedbackModalText);
     setFeedBackModalFlag(false);
   };
 
@@ -168,9 +169,9 @@ export default function FeedBack({
       >
         {devListModalBody}
       </Modal>
-      <a className={classes.githubStyle} href={'https://github.com/rhkdtjr90/tt_scheduler/graphs/commit-activity'}><GitHubIcon/></a>
-      <a onClick={onModalOpen} className={classes.githubStyle}><MailIcon/></a>
-      <a onClick={onDevListModalOpen} className={classes.githubStyle}><ViewListIcon/></a>
+      <a style={{color: darkMode ? 'white' : 'black'}} className={classes.githubStyle} href={'https://github.com/rhkdtjr90/tt_scheduler/graphs/commit-activity'}><GitHubIcon/></a>
+      <a style={{color: darkMode ? 'white' : 'black'}} onClick={onModalOpen} className={classes.githubStyle}><MailIcon/></a>
+      <a style={{color: darkMode ? 'white' : 'black'}} onClick={onDevListModalOpen} className={classes.githubStyle}><ViewListIcon/></a>
     </>
   );
 };

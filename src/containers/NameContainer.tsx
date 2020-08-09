@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Typography, Box} from '@material-ui/core';
+import {Typography, Box, Switch} from '@material-ui/core';
 import {makeStyles} from "@material-ui/core/styles";
 import Clock from "../components/Clock";
 import FeedBack from "../components/FeedBack";
@@ -21,7 +21,9 @@ const useStyles = makeStyles({
   }
 });
 
-export default function NameContainer(){
+export default function NameContainer({
+                                        darkMode, setDarkMode
+                                      }: {darkMode: boolean, setDarkMode: (e:any) => void}){
   const [loginEmail, setLoginEmail] = useState('Local');
 
   const getLoginInfo = () => {
@@ -39,14 +41,22 @@ export default function NameContainer(){
   },[]);
 
   const classes = useStyles();
-  //// Init
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDarkMode(event.target.checked);
+  };
+
   return (
       <>
         <Box className={classes.tobBox}>
-          <FeedBack loginEmail={loginEmail}/>
+          <FeedBack loginEmail={loginEmail} darkMode={darkMode}/>
           <Clock/><br />
           <div className={classes.brDiv}/>
           <Typography className={classes.nameStyle}>{loginEmail}</Typography>
+          <Switch
+            checked={darkMode}
+            onChange={handleChange}
+          />Dark Mode
         </Box>
       </>
   )

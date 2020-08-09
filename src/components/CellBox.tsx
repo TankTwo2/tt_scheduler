@@ -10,6 +10,7 @@ type CellBoxPropsType = {
 
 const useStyles = makeStyles({
   cellContents: {
+    fontSize: 11,
     cursor: 'text',
     height: '8vh',
     width: '10.2vw',

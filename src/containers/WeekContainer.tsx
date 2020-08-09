@@ -23,27 +23,24 @@ const useStyles = makeStyles({
     fontSize: 20,
     width: '10.5vw',
     height: '100%',
-    opacity: 0.8,
-    backgroundColor: 'green',
+    backgroundColor: '#1131A6',
+    color: 'white',
     textAlign: 'center'
   },
   isoWeekTdBox: {
     height: '100%',
     width: '10.5vw',
-    opacity: 0.9,
     textAlign: 'center',
     backgroundColor: 'darkgrey',
   },
   tdBox: {
     height: '100%',
     width: '10.5vw',
-    opacity: 0.8,
   },
   tdWeekendBox: {
     height: '100%',
-    backgroundColor: 'pink',
+    backgroundColor: '#F3CFCD',
     width: '10.5vw',
-    opacity: 0.8,
   },
   tdDivHeader: {
     textAlign: 'center',
@@ -55,7 +52,6 @@ export default function WeekContainer({
                                         firstWeek, lastWeek, currentYY, currentMM
                                       }: WeekContainerType) {
   const classes = useStyles();
-  const CurrentYearFirstWW = moment(Number(currentYY)+1, 'YY').startOf('year').format('WW');
   const LastYearLastWW = moment(Number(currentYY)-1, 'YY').endOf('year').format('WW');
   const trDiv = useCallback(() => {
     let n = 0;
@@ -149,7 +145,7 @@ export default function WeekContainer({
       <Grid item xs>
         <Paper className={classes.isoWeekTdBox}>
           <Typography
-            variant="subtitle1" className={classes.tdDivHeader}>{row}W
+            variant="subtitle1" className={classes.tdDivHeader}>{row.substring(2,4)}W
           </Typography>
           <CellBox
             // cellDate={moment(row, 'WW').format('YYWW')}

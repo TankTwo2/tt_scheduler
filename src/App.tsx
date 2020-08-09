@@ -1,5 +1,5 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import {Paper, Button, TextField, Typography} from '@material-ui/core';
+import React, {useEffect, useState} from 'react';
+import {Paper, Typography} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import moment from "moment";
 import NameContainer from "./containers/NameContainer";
@@ -16,9 +16,8 @@ const useStyles = makeStyles({
     // justifyContent: 'center',
     // alignItems: 'center',
     // background: 'url(https://source.unsplash.com/random/1600x900)',
-    backgroundColor: '#A3BFBA',
     backgroundSize: 'cover',
-    color: 'white',
+    color: 'black',
     overflowY: 'auto',
     overflowX: 'hidden'
   },
@@ -37,6 +36,7 @@ function App() {
   const [currentMM, setCurrentMM] = useState(moment().format('MM'));
   const [firstWeek, setFirstWeek] = useState('');
   const [lastWeek, setLastWeek] = useState('');
+  const [darkMode, setDarkMode] = useState<boolean>(false);
 
   //// InIt
   //년도, 월,
@@ -63,13 +63,13 @@ function App() {
 
   return (
     <>
-      <Paper className={classes.root}>
-        <NameContainer />
+      <Paper style={{backgroundColor: darkMode ? 'black' : '#eee', color: darkMode ? 'white' : 'black'}} className={classes.root}>
+        <NameContainer darkMode={darkMode} setDarkMode={setDarkMode}/>
         <CurrentMonthContainer
-          currentYY={currentYY} currentMM={currentMM} setCurrentMM={setCurrentMM} setCurrentYY={setCurrentYY}
+          currentYY={currentYY} currentMM={currentMM} setCurrentMM={setCurrentMM} setCurrentYY={setCurrentYY} darkMode={darkMode}
         />
         <WeekContainer firstWeek={firstWeek} lastWeek={lastWeek} currentYY={currentYY} currentMM={currentMM}/>
-        <Typography className={classes.version}>0.2.8.1 made by Tanktwo</Typography>
+        <Typography className={classes.version}>0.2.8.2 made by Tanktwo</Typography>
       </Paper>
     </>
   );

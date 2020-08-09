@@ -10,6 +10,7 @@ type CurrentMonthContainerType = {
   setCurrentMM: (e: any) => void,
   currentYY: string,
   currentMM: string,
+  darkMode: boolean
 }
 
 const useStyles = makeStyles({
@@ -24,16 +25,16 @@ const useStyles = makeStyles({
     textAlign: 'center'
   },
   arrowButton: {
-    marginTop: 9, cursor:'pointer', color: 'white', opacity: 0.7, zoom: 1.5
+    marginTop: 9, cursor:'pointer', color: 'black', zoom: 1.5
   },
   monthFont: {
-    color: 'white',
-    opacity: 0.7
+    cursor: 'pointer',
+    color: 'black',
   }
 });
 
 export default function CurrentMonthContainer({
-  setCurrentYY, setCurrentMM, currentYY, currentMM
+  setCurrentYY, setCurrentMM, currentYY, currentMM, darkMode
                                               }: CurrentMonthContainerType) {
   const classes = useStyles();
   const [isDate, setIsDate] = useState(false);
@@ -76,17 +77,21 @@ export default function CurrentMonthContainer({
         <Grid container justify="center" spacing={2}>
           <Grid key={1} item>
             <Paper className={classes.paper}>
-              <ArrowBackIosIcon onClick={prevButton} className={classes.arrowButton}/>
+              <ArrowBackIosIcon onClick={prevButton} className={classes.arrowButton} style={{color: darkMode ? 'white' : 'black'}}/>
             </Paper>
           </Grid>
           <Grid key={2} item>
             <Paper className={classes.paper}>
-              <Typography variant="h2" onClick={onDateClick} className={classes.monthFont}>{currentYY + '. ' + currentMM}</Typography>
+              <Typography
+                variant="h2" onClick={onDateClick} className={classes.monthFont} style={{color: darkMode ? 'white' : 'black'}}
+              >
+                {currentYY + '. ' + currentMM}
+              </Typography>
             </Paper>
           </Grid>
           <Grid key={3} item>
             <Paper className={classes.paper}>
-              <ArrowForwardIosIcon onClick={nextButton} className={classes.arrowButton}/>
+              <ArrowForwardIosIcon onClick={nextButton} className={classes.arrowButton} style={{color: darkMode ? 'white' : 'black'}}/>
             </Paper>
           </Grid>
         </Grid>
