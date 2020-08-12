@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {Paper, Typography} from '@material-ui/core';
+import {Grid, Paper, Typography} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import moment from "moment";
 import NameContainer from "./containers/NameContainer";
 import CurrentMonthContainer from "./containers/CurrentMonthContainer";
 import WeekContainer from "./containers/WeekContainer";
+import FeedBack from "./components/FeedBack";
 
 const useStyles = makeStyles({
   root: {
@@ -37,6 +38,32 @@ function App() {
   const [firstWeek, setFirstWeek] = useState('');
   const [lastWeek, setLastWeek] = useState('');
   const [darkMode, setDarkMode] = useState<boolean>(false);
+  const [loginEmail, setLoginEmail] = useState<string>('Local');
+
+  const getLoginInfo = () => {
+    try{
+      chrome.identity.getProfileUserInfo((res)=>{
+        setLoginEmail(res.email);
+      })
+    }catch (e) {
+      setLoginEmail('Not Connect');
+    }
+  };
+
+  const getDarkModeInfo = () => {
+    try{
+      chrome.storage.sync.get(['darkModeInfo'], function (items) {
+        setDarkMode(Object.values(items)[0] ? Object.values(items)[0] : false);
+      });
+    }catch (e) {
+      setDarkMode(false);
+    }
+  };
+
+  useEffect(()=>{
+    getLoginInfo();
+    getDarkModeInfo();
+  },[]);
 
   //// InIt
   //년도, 월,
@@ -57,19 +84,24 @@ function App() {
     }
   }, [currentYY, currentMM]);
 
-  useEffect(()=>{
-    console.log('firstWeek',firstWeek, 'lastWeek', lastWeek)
-  },[firstWeek, lastWeek]);
-
   return (
     <>
       <Paper style={{backgroundColor: darkMode ? 'black' : '#eee', color: darkMode ? 'white' : 'black'}} className={classes.root}>
-        <NameContainer darkMode={darkMode} setDarkMode={setDarkMode}/>
-        <CurrentMonthContainer
-          currentYY={currentYY} currentMM={currentMM} setCurrentMM={setCurrentMM} setCurrentYY={setCurrentYY} darkMode={darkMode}
-        />
+        <Grid container justify="space-between" spacing={2}>
+          <Grid key={1} item xs={4}>
+            <NameContainer darkMode={darkMode} setDarkMode={setDarkMode} loginEmail={loginEmail}/>
+          </Grid>
+          <Grid key={2} item xs={4}>
+            <CurrentMonthContainer
+              currentYY={currentYY} currentMM={currentMM} setCurrentMM={setCurrentMM} setCurrentYY={setCurrentYY} darkMode={darkMode}
+            />
+          </Grid>
+          <Grid key={3} item xs={4}>
+            <FeedBack loginEmail={loginEmail} darkMode={darkMode}/>
+          </Grid>
+        </Grid>
         <WeekContainer firstWeek={firstWeek} lastWeek={lastWeek} currentYY={currentYY} currentMM={currentMM}/>
-        <Typography className={classes.version}>0.2.8.2 made by Tanktwo</Typography>
+        <Typography className={classes.version}>0.2.8.3 made by Tanktwo</Typography>
       </Paper>
     </>
   );

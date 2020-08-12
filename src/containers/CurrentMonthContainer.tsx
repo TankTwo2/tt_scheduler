@@ -14,18 +14,19 @@ type CurrentMonthContainerType = {
 }
 
 const useStyles = makeStyles({
-  root: {
-    flexGrow: 1,
-  },
   paper: {
+    marginTop: 15,
     height: 120,
-    width: 200,
     backgroundColor: 'rgba( 255, 255, 255, 0.0 )',
     boxShadow: 'none',
     textAlign: 'center'
   },
   arrowButton: {
-    marginTop: 9, cursor:'pointer', color: 'black', zoom: 1.5
+    marginTop: 4,
+    cursor:'pointer',
+    color: 'black',
+    zoom: 2,
+
   },
   monthFont: {
     cursor: 'pointer',
@@ -74,7 +75,7 @@ export default function CurrentMonthContainer({
     <>
       <Grid item xs={12}>
         <TimePicker setCurrentMM={setCurrentMM} setCurrentYY={setCurrentYY} currentYY={currentYY} currentMM={currentMM} isDate={isDate} setIsDate={setIsDate}/>
-        <Grid container justify="center" spacing={2}>
+        <Grid container justify="center" spacing={10}>
           <Grid key={1} item>
             <Paper className={classes.paper}>
               <ArrowBackIosIcon onClick={prevButton} className={classes.arrowButton} style={{color: darkMode ? 'white' : 'black'}}/>
