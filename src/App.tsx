@@ -102,7 +102,7 @@ function App() {
           </Grid>
         </Grid>
         <WeekContainer firstWeek={firstWeek} lastWeek={lastWeek} currentYY={currentYY} currentMM={currentMM} loginEmail={loginEmail}/>
-        <Typography className={classes.version}>0.2.8.3 made by Tanktwo</Typography>
+        <Typography className={classes.version}>0.2.9.0 made by Tanktwo</Typography>
       </Paper>
     </>
   );
