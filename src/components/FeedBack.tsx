@@ -11,6 +11,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import {config} from "../config/config";
 
 
 type FeedBackType = {
@@ -70,7 +71,7 @@ export default function FeedBack({
     setFeedBackModalFrom(loginEmail)
   }, [loginEmail]);
 
-  const onModalOpen = () => {
+  const onModalOpen = async () => {
     // setFeedBackModalFlag(true);
   };
 

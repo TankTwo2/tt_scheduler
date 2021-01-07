@@ -6,6 +6,7 @@ import NameContainer from "./containers/NameContainer";
 import CurrentMonthContainer from "./containers/CurrentMonthContainer";
 import WeekContainer from "./containers/WeekContainer";
 import FeedBack from "./components/FeedBack";
+import { patchFetch } from './patch-fetch';
 
 const useStyles = makeStyles({
   root: {
@@ -100,7 +101,7 @@ function App() {
             <FeedBack loginEmail={loginEmail} darkMode={darkMode}/>
           </Grid>
         </Grid>
-        <WeekContainer firstWeek={firstWeek} lastWeek={lastWeek} currentYY={currentYY} currentMM={currentMM}/>
+        <WeekContainer firstWeek={firstWeek} lastWeek={lastWeek} currentYY={currentYY} currentMM={currentMM} loginEmail={loginEmail}/>
         <Typography className={classes.version}>0.2.8.3 made by Tanktwo</Typography>
       </Paper>
     </>
@@ -108,3 +109,4 @@ function App() {
 }
 
 export default App;
+patchFetch(window);

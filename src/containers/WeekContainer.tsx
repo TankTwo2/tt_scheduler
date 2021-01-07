@@ -9,6 +9,7 @@ type WeekContainerType = {
   lastWeek: string,
   currentYY: string,
   currentMM: string,
+  loginEmail: string
 }
 
 const useStyles = makeStyles({
@@ -49,7 +50,7 @@ const useStyles = makeStyles({
 });
 
 export default function WeekContainer({
-                                        firstWeek, lastWeek, currentYY, currentMM
+                                        firstWeek, lastWeek, currentYY, currentMM, loginEmail
                                       }: WeekContainerType) {
   const classes = useStyles();
   const LastYearLastWW = moment(Number(currentYY)-1, 'YY').endOf('year').format('WW');
@@ -149,7 +150,7 @@ export default function WeekContainer({
           </Typography>
           <CellBox
             // cellDate={moment(row, 'WW').format('YYWW')}
-            cellDate={row}
+            cellDate={row} loginEmail={loginEmail}
           />
         </Paper>
       </Grid>
@@ -171,6 +172,7 @@ export default function WeekContainer({
             </Typography>
             <CellBox
               cellDate={moment(row, 'YYWW').startOf('isoWeek').add(n, 'days',).format('YYMMDD')}
+              loginEmail={loginEmail}
             />
           </Paper>
         </Grid>
