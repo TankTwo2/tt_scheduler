@@ -21,10 +21,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CellBox({
-  cellDate,
-  loginEmail,
-}: CellBoxPropsType) {
+export default function CellBox({ cellDate, loginEmail }: CellBoxPropsType) {
   const classes = useStyles();
   const [flag, setFlag] = useState(false);
   const [tempValue, setTempValue] = useState("");
@@ -69,7 +66,7 @@ export default function CellBox({
     } catch (e) {
       // console.log('Local Test');
     }
-  }, [tempValue]);
+  }, [cellDate, loginEmail, tempValue]);
 
   useEffect(() => {
     if (!inputRef.current) {

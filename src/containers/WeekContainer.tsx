@@ -1,5 +1,5 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import {Grid, Paper, Typography, Box} from '@material-ui/core';
+import React, {useCallback} from 'react';
+import {Grid, Paper, Typography} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import moment from 'moment';
 import CellBox from "../components/CellBox";
@@ -181,7 +181,7 @@ export default function WeekContainer({
     }
 
     return tempDivContainer
-  }, []);
+  }, [classes.isoWeekTdBox, classes.tdBox, classes.tdDivHeader, classes.tdWeekendBox, loginEmail]);
 
 
   return (
