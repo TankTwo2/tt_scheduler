@@ -28,6 +28,7 @@ export default function Clock() {
 
   useEffect(()=>{
     setInterval((PrintTime), 1000)
+    // eslint-disable-next-line
   },[]);
 
   return (

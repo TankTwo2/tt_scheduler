@@ -1,7 +1,7 @@
 {
 	"name": "tt_scheduler",
 	"description": "Override the new tab page with a blank one",
-	"version": "0.2.7.3",
+	"version": "0.2.9.0",
 	"incognito": "split",
 	"browser_action": {
 		"default_icon": "icon.png",
@@ -11,7 +11,9 @@
 		"newtab": "index.html"
 	},
 	"permissions": [
-		"storage"
+		"storage",
+		"identity",
+		"identity.email"
 	],
 	"icons": {
 		"128": "icon.png"

@@ -1,10 +1,22 @@
-import React, {useCallback, useState} from "react";
+import React, {useEffect, useState} from "react";
 import GitHubIcon from '@material-ui/icons/GitHub';
 import MailIcon from '@material-ui/icons/Mail';
+import ViewListIcon from '@material-ui/icons/ViewList';
 import {makeStyles} from "@material-ui/core/styles";
 import Modal from '@material-ui/core/Modal';
-import sendMail from "../hooks/sendMail";
+// import sendMail from "../hooks/sendMail";
 import {Paper, Typography, TextField, Button, Box} from "@material-ui/core";
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+
+
+type FeedBackType = {
+  loginEmail: string,
+  darkMode: boolean
+}
 
 const useStyles = makeStyles({
   modalPaper: {
@@ -18,14 +30,15 @@ const useStyles = makeStyles({
     zIndex: 1
   },
   modalBox: {
-    overFlow: 'scroll'
+    overFlow: 'scroll',
   },
   githubStyle: {
     float: 'right',
     zoom: 1.3,
-    color: 'white',
+    color: 'black',
     margin: 5,
-    marginLeft: 1
+    marginLeft: 1,
+    cursor: 'pointer'
   },
   modalHeader: {
     margin: 15
@@ -36,39 +49,50 @@ const useStyles = makeStyles({
   },
   buttonStyle: {
     float: 'right',
-    marginRight: 10
-  }
+    marginRight: 10,
+  },
+  table: {
+    minWidth: 650,
+  },
 });
 
-export default function FeedBack() {
+export default function FeedBack({
+                                   loginEmail, darkMode
+                                 }:FeedBackType) {
   const classes = useStyles();
-  const [modalFlag, setModalFlag] = useState<boolean>(false);
-  const [modalFrom, setModalFrom] = useState<string>('');
-  const [modalText, setModalText] = useState<string>('');
+  const [feedbackModalFlag, setFeedBackModalFlag] = useState<boolean>(false);
+  const [feedbackModalFrom, setFeedBackModalFrom] = useState<string>('Local');
+  const [feedbackModalText, setFeedBackModalText] = useState<string>('');
 
-  const onModalOpen = () => {
-    setModalFlag(true);
+  const [devListModalFlag, setDevListModalFlag] = useState<boolean>(false);
+
+  useEffect(()=>{
+    setFeedBackModalFrom(loginEmail)
+  }, [loginEmail]);
+
+  const onModalOpen = async () => {
+    // setFeedBackModalFlag(true);
   };
 
   const onFromChange = (e:any) => {
-    setModalFrom(e.target.value);
+    setFeedBackModalFrom(e.target.value);
   };
 
   const onTextFieldChange = (e:any) => {
-    setModalText(e.target.value);
+    setFeedBackModalText(e.target.value);
   };
 
   const onModalOKButton = () => {
-    sendMail(modalFrom, modalText);
-    setModalFlag(false);
+    // sendMail(feedbackModalFrom, feedbackModalText);
+    setFeedBackModalFlag(false);
   };
 
   const onModalCancelButton = () => {
-    setModalFlag(false);
+    setFeedBackModalFlag(false);
   };
 
 
-  const modalBody = (
+  const feedbackBodalBody = (
     <>
       <Paper className={classes.modalPaper}>
         <Box className={classes.modalBox}>
@@ -80,11 +104,11 @@ export default function FeedBack() {
         <Box className={classes.modalBox}>
           <TextField
             className={classes.textFieldStyle} multiline onChange={onFromChange}
-            variant="outlined" value={modalFrom} placeholder={'Title'}
+            variant="outlined" value={feedbackModalFrom} placeholder={'Title'}
           />
           <TextField
             className={classes.textFieldStyle} multiline onChange={onTextFieldChange}
-            variant="outlined" value={modalText} placeholder={'Contents'} rows={8}
+            variant="outlined" value={feedbackModalText} placeholder={'Contents'} rows={8}
           />
         </Box>
         <Box className={classes.modalBox}>
@@ -92,21 +116,62 @@ export default function FeedBack() {
           <Button className={classes.buttonStyle} color="primary" onClick={onModalOKButton}>보내기</Button>
         </Box>
         <br />
-
       </Paper>
     </>
   );
 
+
+  const onDevListModalOpen = () => {
+    setDevListModalFlag(true);
+  };
+
+  const devListData = (
+    [{
+      name: 'test name',
+      date: '2020. 07. 09'
+    }]
+  );
+
+  const devListModalBody = (
+    <Paper className={classes.modalPaper}>
+      <Box className={classes.modalBox}>
+      <Table className={classes.table} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell>개발예정 리스트</TableCell>
+            <TableCell>개발 완료 날짜</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {devListData.map((row) => (
+            <TableRow key={row.name}>
+              <TableCell>{row.name}</TableCell>
+              <TableCell>{row.date}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+      </Box>
+    </Paper>
+  )
+
   return(
     <>
       <Modal
-        open={modalFlag}
-        onClose={()=>setModalFlag(false)}
+        open={feedbackModalFlag}
+        onClose={()=>setFeedBackModalFlag(false)}
       >
-        {modalBody}
+        {feedbackBodalBody}
       </Modal>
-      <a className={classes.githubStyle} href={'https://github.com/rhkdtjr90/tt_scheduler/graphs/commit-activity'}><GitHubIcon/></a>
-      <a onClick={onModalOpen} className={classes.githubStyle}><MailIcon/></a>
+      <Modal
+        open={devListModalFlag}
+        onClose={()=>setDevListModalFlag(false)}
+      >
+        {devListModalBody}
+      </Modal>
+      <a style={{color: darkMode ? 'white' : 'black'}} className={classes.githubStyle} href={'https://github.com/rhkdtjr90/tt_scheduler/graphs/commit-activity'}><GitHubIcon/></a>
+      <a style={{color: darkMode ? 'white' : 'black'}} onClick={onModalOpen} className={classes.githubStyle}><MailIcon/></a>
+      <a style={{color: darkMode ? 'white' : 'black'}} onClick={onDevListModalOpen} className={classes.githubStyle}><ViewListIcon/></a>
     </>
   );
 };
