@@ -1,11 +1,13 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { config } from "../config/config";
 import moment from "moment";
+import { loadChromeStorage, saveChromeStorage } from "../hooks/chromeFunc";
 
 type BodyDateInputType = {
   header: string;
   cellDate: string;
-  loginEmail: string;
+  loginEmail: "Local" | undefined | string;
+  dateType: "wk" | "weekday" | "weekend";
 };
 
 let customHeader: string = "";
@@ -14,10 +16,17 @@ export default function BodyDateInput({
   header,
   cellDate,
   loginEmail,
+  dateType,
 }: BodyDateInputType) {
   const [flag, setFlag] = useState(false);
   const [tempValue, setTempValue] = useState("");
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const boxStyle =
+    dateType === "wk"
+      ? { padding: 0, backgroundColor: "darkgray" }
+      : dateType === "weekend"
+      ? { padding: 0, backgroundColor: "#F3CFCD" }
+      : { padding: 0 };
 
   customHeader =
     header.length === 6
@@ -29,15 +38,8 @@ export default function BodyDateInput({
       : header;
 
   useEffect(() => {
-    try {
-      chrome.storage.sync.get([cellDate], function (items) {
-        if (Object.values(items)[0])
-          console.log(cellDate, Object.values(items)[0]);
-        setTempValue(Object.values(items)[0] ? Object.values(items)[0] : "");
-      });
-    } catch (e) {
-      // console.log('Local Test', cellDate)
-    }
+    const tempData = loadChromeStorage(cellDate);
+    if (tempData) setTempValue(tempData);
   }, [cellDate]);
 
   const onInputChange = useCallback((e) => {
@@ -61,12 +63,8 @@ export default function BodyDateInput({
       }
     );
     if (saveApiRes.status !== 200)
-      console.log(`save api error : ${saveApiRes.status}`);
-    try {
-      chrome.storage.sync.set(temp, function () {});
-    } catch (e) {
-      // console.log('Local Test');
-    }
+      console.error(`save api error : ${saveApiRes.status}`);
+    saveChromeStorage(temp);
   }, [cellDate, loginEmail, tempValue]);
 
   useEffect(() => {
@@ -76,12 +74,9 @@ export default function BodyDateInput({
     inputRef.current.focus();
   }, [flag]);
 
-  if (header === moment().format("YYMMDD"))
-    console.log(header, moment().format("YYMMDD"));
-
   if (flag)
     return (
-      <div className="box" style={{ padding: 0 }}>
+      <div className="box" style={boxStyle}>
         <div
           style={
             header === moment().format("YYMMDD")
@@ -99,22 +94,24 @@ export default function BodyDateInput({
         </div>
         <hr className="navbar-divider" style={{ margin: 0 }} />
         <textarea
-          style={{ fontSize: 10, resize: "none", border: "none" }}
+          style={{
+            ...boxStyle,
+            fontSize: 10,
+            resize: "none",
+            border: "none",
+          }}
           className={"textarea"}
           ref={inputRef}
-          // multiline
-          // disableUnderline
           onBlur={onInputBlur}
           value={tempValue}
           onChange={onInputChange}
         />
       </div>
     );
-  // if(flag) return<ReactQuill theme="snow" onBlur={onInputBlur} value={tempValue} onChange={setTempValue} />
 
   return (
     <>
-      <div className="box" onClick={() => setFlag(true)} style={{ padding: 0 }}>
+      <div className="box" onClick={() => setFlag(true)} style={boxStyle}>
         <div
           style={
             header === moment().format("YYMMDD")
@@ -133,9 +130,9 @@ export default function BodyDateInput({
         </div>
         <hr className="navbar-divider" style={{ margin: 0 }} />
         <textarea
-          style={{ fontSize: 10, resize: "none", border: "none" }}
+          style={{ ...boxStyle, fontSize: 10, resize: "none", border: "none" }}
           className="textarea"
-          value={tempValue}
+          defaultValue={tempValue}
         />
       </div>
     </>

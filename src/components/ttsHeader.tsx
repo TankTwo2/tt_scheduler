@@ -1,20 +1,104 @@
-import React from "react";
+import React, { useState } from "react";
 import Clock from "./clock";
 
-export default function TtsHeader() {
+interface TtsHeaderInter {
+  loginEmail: "Local" | undefined | string;
+  darkMode: boolean;
+  setDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
+  setCurrentYY: (e: string) => void;
+  setCurrentMM: (e: string) => void;
+  currentYY: string;
+  currentMM: string;
+}
+
+export default function TtsHeader({
+  loginEmail,
+  darkMode,
+  setDarkMode,
+  setCurrentYY,
+  setCurrentMM,
+  currentYY,
+  currentMM,
+}: TtsHeaderInter) {
+  const [searchData, setSearchData] = useState<{
+    site: "Google" | "Naver";
+    value: string;
+  }>({ site: "Google", value: "" });
+
+  function handleSearchData(type: "site" | "value", value: string) {
+    setSearchData({ ...searchData, [type]: value });
+  }
+
+  function submitSearch() {
+    if (searchData.site === "Google")
+      window.open(
+        `https://www.google.com/search?q=${searchData.value}`,
+        "_self"
+      );
+    else
+      window.open(
+        `https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=${searchData.value}`,
+        "_self"
+      );
+  }
+
+  function prevButton() {
+    let tempMonthValue = String(Number(currentMM) - 1);
+    if (tempMonthValue.length === 1) {
+      tempMonthValue = "0" + tempMonthValue;
+    }
+    if (tempMonthValue === "00") {
+      setCurrentMM("12");
+      setCurrentYY(String(Number(currentYY) - 1));
+    } else {
+      setCurrentMM(tempMonthValue);
+    }
+  }
+
+  function nextButton() {
+    let tempMonthValue = String(Number(currentMM) + 1);
+    if (tempMonthValue.length === 1) {
+      tempMonthValue = "0" + tempMonthValue;
+    }
+    if (tempMonthValue === "13") {
+      setCurrentMM("01");
+      setCurrentYY(String(Number(currentYY) + 1));
+    } else {
+      setCurrentMM(tempMonthValue);
+    }
+  }
+
+  const onChangeDate = (e: string) => {
+    const splitDate = e.split("-");
+    setCurrentYY(splitDate[0].slice(2, 4));
+    setCurrentMM(splitDate[1]);
+  };
+
   return (
     <nav
-      className="navbar is-fixed-top"
+      className={
+        darkMode
+          ? "navbar is-fixed-top is-dark"
+          : "navbar is-fixed-top is-light"
+      }
       role="navigation"
       aria-label="main navigation"
     >
       <div className="navbar-menu">
         <div className="navbar-start">
           <div className="navbar-item">
-            <div className="field has-addons has-addons-centered">
+            <form
+              className="field has-addons has-addons-centered"
+              onSubmit={(e) => {
+                e.preventDefault();
+                submitSearch();
+              }}
+            >
               <p className="control">
                 <span className="select is-small">
-                  <select>
+                  <select
+                    onChange={(e) => handleSearchData("site", e.target.value)}
+                  >
                     <option>Google</option>
                     <option>Naver</option>
                   </select>
@@ -25,15 +109,46 @@ export default function TtsHeader() {
                   type="text"
                   className="input is-small"
                   placeholder="Search..."
+                  onChange={(e) => handleSearchData("value", e.target.value)}
                 />
               </p>
               <p className="control">
-                <a className="button is-primary is-small is-outlined">Search</a>
+                <a
+                  className="button is-link is-small is-inverted"
+                  style={{ border: "1px solid lightgrey" }}
+                  onClick={() => submitSearch()}
+                >
+                  Search
+                </a>
               </p>
-            </div>
+            </form>
+          </div>
+          <div className="navbar-item" />
+          <div className="navbar-item">
+            <span
+              className="icon"
+              onClick={prevButton}
+              style={{ cursor: "pointer" }}
+            >
+              <i className="fas fa-chevron-left" />
+            </span>
           </div>
           <div className="navbar-item">
-            <input type="month" className="input is-small" />
+            <input
+              type="month"
+              className="input is-small"
+              value={`20${currentYY}-${currentMM}`}
+              onChange={(e) => onChangeDate(e.target.value)}
+            />
+          </div>
+          <div className="navbar-item">
+            <span
+              className="icon"
+              onClick={nextButton}
+              style={{ cursor: "pointer" }}
+            >
+              <i className="fas fa-chevron-right" />
+            </span>
           </div>
         </div>
         <div className="navbar-end pr-5">
@@ -47,25 +162,36 @@ export default function TtsHeader() {
             <div className="navbar-dropdown is-right">
               <a className="navbar-item">
                 <div className="field">
-                  <input
-                    type="checkbox"
-                    id="Dark Mode"
-                    className="checkbox mr-1"
-                    checked
-                  />
-                  <label htmlFor="Dark Mode">Dark Mode</label>
+                  <label htmlFor="Dark Mode">
+                    Dark Mode
+                    <input
+                      type="checkbox"
+                      id="Dark Mode"
+                      className="checkbox ml-1"
+                      checked={darkMode}
+                      onChange={(e) => setDarkMode(e.target.checked)}
+                    />
+                  </label>
                 </div>
               </a>
               <a className="navbar-item">
-                <span>GitHub</span>
+                <span
+                  onClick={() =>
+                    window.open(
+                      "https://github.com/TankTwo2/tt_scheduler/issues"
+                    )
+                  }
+                >
+                  GitHub
+                </span>
                 <span className="icon">
                   <i className="fab fa-github" />
                 </span>
               </a>
               <a className="navbar-item">개발 예정 리스트</a>
               <hr className="navbar-divider" />
-              <div className="navbar-item">Login ID</div>
-              <div className="navbar-item">Version 0.9.1</div>
+              <div className="navbar-item">{loginEmail}</div>
+              <div className="navbar-item">Version 1.0.0</div>
             </div>
           </div>
         </div>

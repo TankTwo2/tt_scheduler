@@ -3,6 +3,13 @@ import { patchFetch } from "./patch-fetch";
 import TtsHeader from "./components/ttsHeader";
 import TtsBody from "./components/ttsBody";
 import moment from "moment";
+import { loadChromeStorage, loginInfo } from "./hooks/chromeFunc";
+
+const defaultStyle = {
+  width: "100vw",
+  height: "105vh",
+  backgroundColor: "#2c2c2c",
+};
 
 function App() {
   const [currentYY, setCurrentYY] = useState(moment().format("YY"));
@@ -10,26 +17,18 @@ function App() {
   const [firstWeek, setFirstWeek] = useState("");
   const [lastWeek, setLastWeek] = useState("");
   const [darkMode, setDarkMode] = useState<boolean>(false);
-  const [loginEmail, setLoginEmail] = useState<string>("Local");
+  const [loginEmail, setLoginEmail] = useState<"Local" | undefined | string>(
+    "Local"
+  );
 
   const getLoginInfo = () => {
-    try {
-      chrome.identity.getProfileUserInfo((res) => {
-        setLoginEmail(res.email);
-      });
-    } catch (e) {
-      setLoginEmail("Not Connect");
-    }
+    setLoginEmail(loginInfo());
   };
 
   const getDarkModeInfo = () => {
-    try {
-      chrome.storage.sync.get(["darkModeInfo"], function (items) {
-        setDarkMode(Object.values(items)[0] ? Object.values(items)[0] : false);
-      });
-    } catch (e) {
-      setDarkMode(false);
-    }
+    const darkModeInfo = loadChromeStorage("darkModeInfo");
+    if (darkModeInfo) setDarkMode(darkModeInfo);
+    else setDarkMode(false);
   };
 
   useEffect(() => {
@@ -92,21 +91,37 @@ function App() {
 
   return (
     <>
-      <div className="container is-fluid">
-        <div className={"columns"}>
-          <TtsHeader />
+      <div
+        style={
+          darkMode
+            ? defaultStyle
+            : { ...defaultStyle, backgroundColor: "white" }
+        }
+      >
+        <div className="container is-fluid">
+          <div className={"columns"}>
+            <TtsHeader
+              loginEmail={loginEmail}
+              darkMode={darkMode}
+              setDarkMode={setDarkMode}
+              setCurrentYY={setCurrentYY}
+              setCurrentMM={setCurrentMM}
+              currentYY={currentYY}
+              currentMM={currentMM}
+            />
+          </div>
+          <br />
+          <br />
+          <br />
+          <br />
+          <TtsBody
+            loginEmail={loginEmail}
+            currentMM={currentMM}
+            currentYY={currentYY}
+            firstWeek={firstWeek}
+            lastWeek={lastWeek}
+          />
         </div>
-        <br />
-        <br />
-        <br />
-        <br />
-        <TtsBody
-          loginEmail={loginEmail}
-          currentMM={currentMM}
-          currentYY={currentYY}
-          firstWeek={firstWeek}
-          lastWeek={lastWeek}
-        />
       </div>
     </>
   );

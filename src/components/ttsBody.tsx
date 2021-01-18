@@ -7,7 +7,7 @@ type WeekContainerType = {
   lastWeek: string;
   currentYY: string;
   currentMM: string;
-  loginEmail: string;
+  loginEmail: "Local" | undefined | string;
 };
 
 export default function TtsBody({
@@ -80,7 +80,7 @@ export default function TtsBody({
     const headerDiv = () => {
       let tempHeaderContainer = [];
       tempHeaderContainer.push(
-        <div className="column" style={{ padding: 6 }}>
+        <div className="column" style={{ padding: 6 }} key="week">
           <div
             className="box"
             style={{
@@ -97,7 +97,7 @@ export default function TtsBody({
       let n = 0;
       while (n < 7) {
         tempHeaderContainer.push(
-          <div className="column" style={{ padding: 6 }}>
+          <div className="column" style={{ padding: 6 }} key={n}>
             <div
               className="box"
               style={{
@@ -118,36 +118,34 @@ export default function TtsBody({
     return (
       <>
         {headerDiv()}
-        {tempWeek.map((row) => (
-          <div className="columns">{tdDiv(row)}</div>
+        {tempWeek.map((row, index) => (
+          <div className="columns" key={index}>
+            {tdDiv(row, index)}
+          </div>
         ))}
       </>
     );
   }, [lastWeek, firstWeek]);
 
   const tdDiv = useCallback(
-    (row) => {
+    (row, index) => {
       let tempDivContainer = [];
       tempDivContainer.push(
-        <div className="column" style={{ padding: 6 }}>
+        <div className="column" key={index} style={{ padding: 6 }}>
           <BodyDateInput
+            dateType={"wk"}
             header={row.substring(2, 4) + "W"}
             cellDate={row}
             loginEmail={loginEmail}
-            // cellDate={moment(row, 'WW').format('YYWW')}
           />
         </div>
       );
       let n = 0;
       while (n < 7) {
-        // console.log(moment(row, 'WW').startOf('isoWeek').add(n, 'days',).format('YYMMDD'))
         tempDivContainer.push(
-          <div
-            className="column"
-            id={n === 5 || n === 6 ? "classes.tdWeekendBox" : "classes.tdBox"}
-            style={{ padding: 6 }}
-          >
+          <div key={`${n}_column`} className="column" style={{ padding: 6 }}>
             <BodyDateInput
+              dateType={n === 5 || n === 6 ? "weekend" : "weekday"}
               header={moment(row, "YYWW")
                 .startOf("isoWeek")
                 .add(n, "days")
