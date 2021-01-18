@@ -11,7 +11,7 @@ export function patchFetch(global: Window) {
     // }
     // 옵션이 존재하지 않으면 JSON으로 간주
     if (!init) {
-      init = { headers: { 'Content-Type': 'application/json' } };
+      init = { headers: { "Content-Type": "application/json" } };
     } else {
       // 옵션과 옵션 하위 헤더가 존재하고
       if (init.headers) {
@@ -22,7 +22,7 @@ export function patchFetch(global: Window) {
         // }
       } else {
         // 헤더가 존재하지 않으면 JSON으로 간주
-        init.headers = { 'Content-Type': 'application/json' };
+        init.headers = { "Content-Type": "application/json" };
       }
     }
 
