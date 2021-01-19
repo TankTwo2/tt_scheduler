@@ -30,7 +30,6 @@ export default function TtsBody({
       // 년도가 같으면 마지막 - 처음 반복문
       for (n = 0; n <= Number(lastWeek) - Number(firstWeek); n++) {
         tempWeek.push(String(Number(lastWeek) - n));
-        // console.log(String(Number(lastWeek) - n), 1);
       }
     } else {
       // 년도가 다르면 전년도 마지막주 - firstWeek 반복문, 마지막주 - 해당년도 첫째주
@@ -45,12 +44,10 @@ export default function TtsBody({
           tempWeek.push(
             String(Number(currentYY) - 1) + String(Number(LastYearLastWW) - n)
           );
-          // console.log(String(Number(currentYY) - 1) + String(Number(LastYearLastWW) - n), 2)
         }
         for (n = 1; n < Number(lastWeek.slice(2)) + 1; n++) {
           if (tempWeek.length !== 6) {
             tempWeek.push(currentYY + "0" + n);
-            // console.log(currentYY + '0' + n, 3)
           }
         }
       } else if (currentMM === "12") {
@@ -63,14 +60,12 @@ export default function TtsBody({
           tempWeek.push(
             currentYY + moment(firstWeek, "YYWW").add(n, "w").format("WW")
           );
-          // console.log(currentYY +moment(firstWeek, 'YYWW').add(n,'w').format('WW'), 2)
           n += 1;
         }
 
         for (n = 1; n < Number(lastWeek.slice(2)) + 1; n++) {
           if (tempWeek.length !== 6) {
             tempWeek.push(Number(currentYY) + 1 + "0" + n);
-            // console.log((Number(currentYY) + 1) + '0' + n, 3)
           }
         }
       }

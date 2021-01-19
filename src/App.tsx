@@ -3,7 +3,6 @@ import { patchFetch } from "./patch-fetch";
 import TtsHeader from "./components/ttsHeader";
 import TtsBody from "./components/ttsBody";
 import moment from "moment";
-import { loadChromeStorage, loginInfo } from "./hooks/chromeFunc";
 
 const defaultStyle = {
   width: "100vw",
@@ -21,23 +20,23 @@ function App() {
     "Local"
   );
 
-  const getLoginInfo = () => {
-    setLoginEmail(loginInfo());
-  };
-
-  const getDarkModeInfo = () => {
-    const darkModeInfo = loadChromeStorage("darkModeInfo");
-    if (darkModeInfo) setDarkMode(darkModeInfo);
-    else setDarkMode(false);
-  };
-
   useEffect(() => {
+    const getLoginInfo = () => {
+      try {
+        chrome.identity.getProfileUserInfo(async (res) => {
+          setLoginEmail(res.email);
+          chrome.storage.sync.get(["darkModeInfo"], function (items) {
+            setDarkMode(
+              Object.values(items)[0] ? Object.values(items)[0] : false
+            );
+          });
+        });
+      } catch (e) {
+        console.error(e, "getLoginInfo");
+      }
+    };
     getLoginInfo();
-    getDarkModeInfo();
   }, []);
-
-  //// InIt
-  //년도, 월,
 
   useEffect(() => {
     if (
@@ -114,13 +113,15 @@ function App() {
           <br />
           <br />
           <br />
-          <TtsBody
-            loginEmail={loginEmail}
-            currentMM={currentMM}
-            currentYY={currentYY}
-            firstWeek={firstWeek}
-            lastWeek={lastWeek}
-          />
+          {loginEmail !== "Local" && (
+            <TtsBody
+              loginEmail={loginEmail}
+              currentMM={currentMM}
+              currentYY={currentYY}
+              firstWeek={firstWeek}
+              lastWeek={lastWeek}
+            />
+          )}
         </div>
       </div>
     </>

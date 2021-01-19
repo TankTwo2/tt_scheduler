@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { config } from "../config/config";
 import moment from "moment";
-import { loadChromeStorage, saveChromeStorage } from "../hooks/chromeFunc";
 
 type BodyDateInputType = {
   header: string;
@@ -38,8 +37,14 @@ export default function BodyDateInput({
       : header;
 
   useEffect(() => {
-    const tempData = loadChromeStorage(cellDate);
-    if (tempData) setTempValue(tempData);
+    try {
+      chrome.storage.sync.get([cellDate], function (items) {
+        if (Object.values(items)[0])
+          setTempValue(Object.values(items)[0] ? Object.values(items)[0] : "");
+      });
+    } catch (e) {
+      console.error("Load Error", cellDate);
+    }
   }, [cellDate]);
 
   const onInputChange = useCallback((e) => {
@@ -50,6 +55,12 @@ export default function BodyDateInput({
     setFlag(false);
     let temp: { [index: string]: any } = {};
     temp[cellDate] = tempValue;
+    try {
+      chrome.storage.sync.set(temp, function () {});
+    } catch (e) {
+      console.error("Save Error", cellDate);
+    }
+
     let saveApiRes = await fetch(
       `${loginEmail === "Local" ? config.dev : config.api}tts/save`,
       {
@@ -64,7 +75,6 @@ export default function BodyDateInput({
     );
     if (saveApiRes.status !== 200)
       console.error(`save api error : ${saveApiRes.status}`);
-    saveChromeStorage(temp);
   }, [cellDate, loginEmail, tempValue]);
 
   useEffect(() => {
