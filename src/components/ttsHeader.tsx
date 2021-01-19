@@ -201,7 +201,7 @@ export default function TtsHeader({
               <a className="navbar-item">개발 예정 리스트</a>
               <hr className="navbar-divider" />
               <div className="navbar-item">{loginEmail}</div>
-              <div className="navbar-item">Version 1.0.0</div>
+              <div className="navbar-item">Version 1.0.1</div>
             </div>
           </div>
         </div>
