@@ -169,7 +169,17 @@ export default function TtsHeader({
                       id="Dark Mode"
                       className="checkbox ml-1"
                       checked={darkMode}
-                      onChange={(e) => setDarkMode(e.target.checked)}
+                      onChange={(e) => {
+                        try {
+                          chrome.storage.sync.set(
+                            { darkModeInfo: e.target.checked },
+                            function () {}
+                          );
+                        } catch (e) {
+                          console.error(e, "setDarkMode");
+                        }
+                        setDarkMode(e.target.checked);
+                      }}
                     />
                   </label>
                 </div>
