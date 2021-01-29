@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Clock from "./clock";
+import XLSX from "xlsx";
 
 interface TtsHeaderInter {
   loginEmail: "Local" | undefined | string;
@@ -73,6 +74,21 @@ export default function TtsHeader({
     setCurrentYY(splitDate[0].slice(2, 4));
     setCurrentMM(splitDate[1]);
   };
+
+  function onExcelExport() {
+    try {
+      chrome.storage.sync.get(null, function (items) {
+        let ws = XLSX.utils.json_to_sheet([items]);
+
+        /* add to workbook */
+        let wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "tt_scheduler");
+
+        /* generate an XLSX file */
+        XLSX.writeFile(wb, `tt_scheduler_${new Date().toISOString()}.xlsx`);
+      });
+    } catch (e) {}
+  }
 
   return (
     <nav
@@ -198,7 +214,9 @@ export default function TtsHeader({
                   <i className="fab fa-github" />
                 </span>
               </a>
-              <a className="navbar-item">개발 예정 리스트</a>
+              <a className="navbar-item" onClick={() => onExcelExport()}>
+                엑셀 추출
+              </a>
               <hr className="navbar-divider" />
               <div className="navbar-item">{loginEmail}</div>
               <div className="navbar-item">Version 1.0.0</div>

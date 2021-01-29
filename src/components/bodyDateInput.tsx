@@ -17,7 +17,6 @@ export default function BodyDateInput({
   loginEmail,
   dateType,
 }: BodyDateInputType) {
-  const [flag, setFlag] = useState(false);
   const [tempValue, setTempValue] = useState("");
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const boxStyle =
@@ -37,6 +36,7 @@ export default function BodyDateInput({
       : header;
 
   useEffect(() => {
+    setTempValue("");
     try {
       chrome.storage.sync.get([cellDate], function (items) {
         if (Object.values(items)[0])
@@ -52,7 +52,6 @@ export default function BodyDateInput({
   }, []);
 
   const onInputBlur = useCallback(async () => {
-    setFlag(false);
     let temp: { [index: string]: any } = {};
     temp[cellDate] = tempValue;
     try {
@@ -77,51 +76,9 @@ export default function BodyDateInput({
       console.error(`save api error : ${saveApiRes.status}`);
   }, [cellDate, loginEmail, tempValue]);
 
-  useEffect(() => {
-    if (!inputRef.current) {
-      return;
-    }
-    inputRef.current.focus();
-  }, [flag]);
-
-  if (flag)
-    return (
-      <div className="box" style={boxStyle}>
-        <div
-          style={
-            header === moment().format("YYMMDD")
-              ? {
-                  backgroundColor: "orangered",
-                  color: "white",
-                  fontWeight: "bold",
-                  fontSize: 14,
-                  textAlign: "center",
-                }
-              : { fontSize: 14, textAlign: "center", fontWeight: "bold" }
-          }
-        >
-          {customHeader}
-        </div>
-        <hr className="navbar-divider" style={{ margin: 0 }} />
-        <textarea
-          style={{
-            ...boxStyle,
-            fontSize: 10,
-            resize: "none",
-            border: "none",
-          }}
-          className={"textarea"}
-          ref={inputRef}
-          onBlur={onInputBlur}
-          value={tempValue}
-          onChange={onInputChange}
-        />
-      </div>
-    );
-
   return (
     <>
-      <div className="box" onClick={() => setFlag(true)} style={boxStyle}>
+      <div className="box" style={boxStyle}>
         <div
           style={
             header === moment().format("YYMMDD")
@@ -142,7 +99,10 @@ export default function BodyDateInput({
         <textarea
           style={{ ...boxStyle, fontSize: 10, resize: "none", border: "none" }}
           className="textarea"
-          defaultValue={tempValue}
+          ref={inputRef}
+          onBlur={onInputBlur}
+          value={tempValue}
+          onChange={onInputChange}
         />
       </div>
     </>
